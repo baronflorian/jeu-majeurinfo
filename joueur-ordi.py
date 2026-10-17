@@ -8,5 +8,3 @@ class JoueurOrdi:
             return 1  # Lancer une boule de feu
         else:
             return None
-
-
