@@ -5,7 +5,5 @@ def menu_actions():
     print("2.Lancer de la glace")
     print("3. Lancer un éclair")
 
-
 def joueur_ordi():
     "L'ordinateur répond intelligmeent aux acitons du joueur"
-    
