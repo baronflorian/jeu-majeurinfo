@@ -9,6 +9,17 @@ elements
 
 
 on incarne un sorcier qui se bat avec les elements : eau, feu, air => diffentes attaques possibles qui nécessitent
-plus ou moins de temps pour recharger
+plus ou moins de temps pour recharger (info stockées dans des classes)
+pour les elements complementaires, les dégats se compensent
+
+plus une attaque est puissante plus elle prend du temps a recharger
+
 il se bat contre les mechants (ia)  : dark magician
 
+but : tuer l'ennemi
+
+elements : feu, eau
+glace, lave
+foudre terre
+magie temps
+vent ?
