@@ -6,4 +6,4 @@ def menu_actions():
     print("3. Lancer un éclair")
 
 def joueur_ordi():
-    "L'ordinateur répond intelligmeent aux acitons du joueur"
+    "L'ordinateur répond intelligmeent aux aci tons du joueur"
