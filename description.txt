@@ -1,0 +1,14 @@
+JEU
+
+lucie.fontanini@gmail.com
+baronflorian73@gmail.com
+julie.bruel@mailo.fr
+
+carte
+elements
+
+
+on incarne un sorcier qui se bat avec les elements : eau, feu, air => diffentes attaques possibles qui nécessitent
+plus ou moins de temps pour recharger
+il se bat contre les mechants (ia)  : dark magician
+
