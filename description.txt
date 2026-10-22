@@ -23,3 +23,13 @@ glace, lave
 foudre terre
 magie temps
 vent ?
+
+ce qui est marque ds jeu.py et cest a clarifier:
+"Régles du jeux : Le but est de tuer le dark magician; chaque éléments donne des dégats. \n " \
+    "Si on lance avec le dark magician une action complémentaire un seul prends les dégats de points : la differences de deux, \n" \
+    " si pendant deux attaques de suite l'utilisateur ne recoit pas de degats, \n" \
+    " c'est a dire qu'il a pu obtenir deux attaques complémentaire d'affilé \n" \
+    "et que ses deux attauses complémentaire étaient de points de dégats plus élevés que le dark magician \n" \
+    "alors on gagne 6 points de vie un plus /n" \
+    "on peut slectionner à chaque tour un carte parmis quatre cartes parmis les 8 du jeux "
+    "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)"
