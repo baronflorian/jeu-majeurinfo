@@ -33,3 +33,4 @@ ce qui est marque ds jeu.py et cest a clarifier:
     "alors on gagne 6 points de vie un plus /n" \
     "on peut slectionner à chaque tour un carte parmis quatre cartes parmis les 8 du jeux "
     "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)"
+    
