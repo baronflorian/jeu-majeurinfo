@@ -12,7 +12,7 @@ class Joueur:
         print("Tes cartes disponibles :")
 
         for i in range(len(self.lescartes_disponibles)):
-            print("Lescartes disponibles sont: ",i+1,":",self.lescartes_disponibles[i])
+            print(i+1,":",self.lescartes_disponibles[i])
 
         choix = input("Choisis une carte 1 à 4: ")
         #il faut pesner a rajouter une condition pr sassurer que oel nombre sois comprens entre 1 et 4. 
