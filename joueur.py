@@ -1,5 +1,6 @@
 class Joueur:
-    def __init__(self, actions):
+    def __init__(self, actions,vie):
+        self.vie=vie
         self.filesdemescartes = actions  # La file sde toutes les action voir dans jeu.py, fn menu desa ction duispo
         self.lescartes_disponibles = []
 
@@ -7,6 +8,7 @@ class Joueur:
         for i in range(4):
             carte_suivante=self.filesdemescartes.popleft()
             self.lescartes_disponibles.append(carte_suivante) 
+    
 
     def choisir_carte(self):
         print("Tes cartes disponibles :")

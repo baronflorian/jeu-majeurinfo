@@ -36,6 +36,12 @@ def menu_actions_disponible():
     action.append("Magie")
     action.append("Temps")
     return action
+
+
+
+
+
+
 def main():
     menu_de_debut
     joueur = Joueur(menu_actions_disponible())
