@@ -8,6 +8,8 @@ class Joueur:
             carte_suivante=self.filesdemescartes.popleft()
             self.lescartes_disponibles.append(carte_suivante) 
 
+    
+
     def choisir_carte(self):
         print("Tes cartes disponibles :")
 

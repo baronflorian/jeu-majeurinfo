@@ -13,7 +13,11 @@ def menu_de_debut():
     "et que ses deux attaques complémentaires étaient de points de dégats plus élevés que le dark magician \n" \
     "alors on gagne 6 points de vie en plus /n" \
     "on peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux "
-    "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)")
+    "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)\n" \
+    "quand l'utilisateur/l'ia aura 20 lulu, le user / lia pourra se deplacer," \
+    " le joueur dapres lancera une attaus sans toucher ladversaire." \
+    "le joueur gagne quand il arrive a la postition de lautre joueur\n" \
+    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé")
     print("""| Élément | Points de dégâts |
 |---------|------------------|
 | Feu     | 10               |
