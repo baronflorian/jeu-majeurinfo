@@ -33,3 +33,18 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
+map = """
+#############
+#A      #  B#
+### ### # # #
+#   #   # # #
+# ### ### # #
+#     #   ###
+### # # ### #
+#   #       #
+#############
+"""
+taille_map = (len(map.splitlines()),len(map.splitlines()[0])) # taille de la map (ligne, colonne)
+
+
+
