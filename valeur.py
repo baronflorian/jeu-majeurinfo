@@ -22,7 +22,9 @@ regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élémen
     "quand l'utilisateur/l'ia aura 20 lulu, le user / lia pourra se deplacer," \
     " le joueur dapres lancera une attaus sans toucher ladversaire." \
     "le joueur gagne quand il arrive a la postition de lautre joueur\n" \
-    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé"""
+    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé \n
+    si le joueur A ou le joueur B arrive à la position du joueur B ou A alors le joueur A a gagne."""
+
 menu = """| Élément | Points de dégâts |
 |---------|------------------|
 | Feu     | 10               |
