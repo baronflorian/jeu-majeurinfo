@@ -1,15 +1,10 @@
 from collections import deque
+
+
 def menu_actions_disponible():
-    action = deque()
-    action.append("Feu")
-    action.append("Glace")
-    action.append("Eclair") 
-    action.append("Lave")
-    action.append("Eau")
-    action.append("Terre")
-    action.append("Magie")
-    action.append("Temps")
+    action = deque(['Feu','Glace','Eclair','Lave','Eau','Terre','Magie','Temps']) 
     return action
+
 regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élément donne des dégats. \n " \
     "Si le dark magician lance une action complémentaire à notre attaque, \n
     un seul prend les dégats de pv : la difference des dégats des 2attaques, \n" \
@@ -38,7 +33,7 @@ menu = """| Élément | Points de dégâts |
 
 CARTES = {"Feu":10, "Eau":12} # cartes et leurs degats
 
-COMPLEMENTAIRES = {{"Feu", "Eau"}} # mettre toutes les cartes complementaires
+COMPLEMENTAIRES = {{"Feu", "Eau"}, {'eclair', 'glace'}} # mettre toutes les cartes complementaires
 map = """
 #############
 #A      #  B#
