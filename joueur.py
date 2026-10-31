@@ -9,7 +9,11 @@ class Joueur:
             carte_suivante=self.filesdemescartes.popleft()
             self.lescartes_disponibles.append(carte_suivante) 
     
-
+    def est_vivant(self):
+        if self.vie>0:
+            return True 
+        else:
+            return False
     
 
     def choisir_carte(self):
