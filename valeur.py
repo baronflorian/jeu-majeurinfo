@@ -32,3 +32,8 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
+
+CARTES = {"Feu":10, "Eau":12} # cartes et leurs degats
+
+COMPLEMENTAIRES = {{"Feu", "Eau"}} # mettre toutes les cartes complementaires
+
