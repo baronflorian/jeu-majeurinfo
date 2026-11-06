@@ -1,7 +1,13 @@
-from joueur_ordi import JoueurOrdi
-from joueur import Joueur
+
+
+
+
 from collections import deque
+
 import valeur
+from joueur import Joueur, Ordi
+
+
 def menu_de_debut():
     
     print("Bienvenue dans le jeu de combat !")

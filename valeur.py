@@ -1,15 +1,10 @@
 from collections import deque
+
+
 def menu_actions_disponible():
-    action = deque()
-    action.append("Feu")
-    action.append("Glace")
-    action.append("Eclair") 
-    action.append("Lave")
-    action.append("Eau")
-    action.append("Terre")
-    action.append("Magie")
-    action.append("Temps")
+    action = deque(['Feu','Glace','Eclair','Lave','Eau','Terre','Magie','Temps']) 
     return action
+
 regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élément donne des dégats. \n " \
     "Si le dark magician lance une action complémentaire à notre attaque, \n
     un seul prend les dégats de pv : la difference des dégats des 2attaques, \n" \
@@ -22,7 +17,9 @@ regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élémen
     "quand l'utilisateur/l'ia aura 20 lulu, le user / l'ia pourra se deplacer," \
     " le joueur dapres lancera une attaus sans toucher l'adversaire." \
     "le joueur gagne quand il arrive a la postition de l'autre joueur\n" \
-    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé"""
+    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé \n
+    si le joueur A ou le joueur B arrive à la position du joueur B ou A alors le joueur A a gagne."""
+
 menu = """| Élément | Points de dégâts |
 |---------|------------------|
 | Feu     | 10               |
@@ -33,5 +30,3 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
-
-degat_elements={"Feu": 10, "Eau": 12, "Glace": 8, "Lave": 12, "Foudre": 14, "Terre": 16, "Magie": 20, "Temps": 18}
