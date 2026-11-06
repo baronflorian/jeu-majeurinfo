@@ -1,14 +1,11 @@
-
-
-
-
 from collections import deque
-
+from parcours import parcour
 import valeur
 from joueur import Joueur, Ordi
 
-def peut_on_se_deplacer():
-    if lulu
+
+
+    
 
 def menu_de_debut():
     
@@ -24,10 +21,13 @@ def main():
     joueur = Joueur(valeur.menu_actions_disponible())
     continuer = "1"
     while continuer == "1":
-        carte = joueur.choisir_carte()
-        print("Tu joues la :",carte, "contre le dark magician")
-        continuer = input("Tu veux continuer : oui tape 1 non tape 2 : ")
-    "si le user tape deux il faudra arrete le prog"
+        if lulu >= 20:
+            parcours.bouger(lettre)
+        else: 
+            carte = joueur.choisir_carte()
+            print("Tu joues la :",carte, "contre le dark magician")
+            continuer = input("Tu veux continuer : oui tape 1 non tape 2 : ")
+    exit() # car on est sorti de la boucle.
 
 if __name__ == "__main__":
     main()
