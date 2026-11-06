@@ -30,3 +30,6 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
+
+
+degat_elements={"Feu": 10, "Eau": 12, "Glace": 8, "Lave": 12, "Foudre": 14, "Terre": 16, "Magie": 20, "Temps": 18}
