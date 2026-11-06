@@ -2,8 +2,17 @@ from player import Player
 
 
 class Joueur(Player):
-    def __init__(self, actions, vie):
+    def __init__(self, actions, vie, lulu):
         super().__init__(actions, vie)
+        self.lulu = lulu
+
+    def est_vivant(self):
+        return self.vie > 0
+    
+    def deplacement(self):
+        if self.lulu >= 20:
+            self.lulu -= 20
+            return True
 
     def choisir_carte(self):
         print("Tes cartes disponibles :")

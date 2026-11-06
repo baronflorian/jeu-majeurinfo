@@ -33,3 +33,4 @@ menu = """| Élément | Points de dégâts |
 
 
 degat_elements={"Feu": 10, "Eau": 12, "Glace": 8, "Lave": 12, "Foudre": 14, "Terre": 16, "Magie": 20, "Temps": 18}
+carte_complementaire={"Feu":"Eau","Glace":"Lave","Foudre":"Terre","Magie":"Temps","Eau":"Feu","Lave":"Glace","Terre":"Foudre","Temps":"Magie"}
