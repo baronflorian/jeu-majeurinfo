@@ -4,7 +4,7 @@ from collections import deque
 def menu_actions_disponible():
     action = deque(['Feu','Glace','Eclair','Lave','Eau','Terre','Magie','Temps']) 
     return action
-
+lulu_initial = 10
 regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élément donne des dégats. \n " \
     "Si le dark magician lance une action complémentaire à notre attaque, \n
     un seul prend les dégats de pv : la difference des dégats des 2attaques, \n" \

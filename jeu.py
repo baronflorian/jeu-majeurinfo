@@ -7,6 +7,8 @@ from collections import deque
 import valeur
 from joueur import Joueur, Ordi
 
+def peut_on_se_deplacer():
+    if lulu
 
 def menu_de_debut():
     
