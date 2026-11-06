@@ -19,9 +19,9 @@ regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élémen
     "alors on gagne 6 points de vie en plus /n" \
     "on peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux "
     "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)\n" \
-    "quand l'utilisateur/l'ia aura 20 lulu, le user / lia pourra se deplacer," \
-    " le joueur dapres lancera une attaus sans toucher ladversaire." \
-    "le joueur gagne quand il arrive a la postition de lautre joueur\n" \
+    "quand l'utilisateur/l'ia aura 20 lulu, le user / l'ia pourra se deplacer," \
+    " le joueur dapres lancera une attaus sans toucher l'adversaire." \
+    "le joueur gagne quand il arrive a la postition de l'autre joueur\n" \
     "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé"""
 menu = """| Élément | Points de dégâts |
 |---------|------------------|
@@ -33,3 +33,5 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
+
+degat_elements={"Feu": 10, "Eau": 12, "Glace": 8, "Lave": 12, "Foudre": 14, "Terre": 16, "Magie": 20, "Temps": 18}
