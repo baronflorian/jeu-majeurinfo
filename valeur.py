@@ -5,14 +5,45 @@ VIE_DEPART = 30
 LULU_DEPART = 0
 LULU_POUR_BOUGER = 20
 
-# Le plateau : A = Dark Magician, B = joueur, # = mur
-plateau = [
-    list("#####"),
-    list("#A  #"),
-    list("# # #"),
-    list("#  B#"),
-    list("#####"),
-]
+# --- Plateaux possibles ---
+# A = Dark Magician, B = joueur, # = mur, espace = case libre.
+# Chaque ligne doit avoir la même longueur et le plateau doit être entouré de murs.
+plateaux = {
+    "petit": [
+        "#####",
+        "#A  #",
+        "# # #",
+        "#  B#",
+        "#####",
+    ],
+    "labyrinthe": [
+        "#########",
+        "#A      #",
+        "# ##### #",
+        "#   #   #",
+        "### # ###",
+        "#   #   #",
+        "# ##### #",
+        "#      B#",
+        "#########",
+    ],
+    "piliers": [
+        "###########",
+        "#A        #",
+        "# ## ### ##",
+        "#         #",
+        "# ## # ## #",
+        "#    #    #",
+        "# ## # ## #",
+        "#         #",
+        "# ## ### ##",
+        "#        B#",
+        "###########",
+    ],
+}
+
+# Pour changer de plateau, remplace "petit" par "labyrinthe" ou "piliers".
+plateau = [list(ligne) for ligne in plateaux["petit"]]
 
 # z = haut, s = bas, q = gauche, d = droite (comme dans minecraft :) )
 DIRECTIONS = {
