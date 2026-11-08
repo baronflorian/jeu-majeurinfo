@@ -1,25 +1,66 @@
 from collections import deque
 
+# --- Réglages du jeu ---
+VIE_DEPART = 30
+LULU_DEPART = 0
+LULU_POUR_BOUGER = 20
+
+# Le plateau : A = Dark Magician, B = joueur, # = mur
+plateau = [
+    list("#####"),
+    list("#A  #"),
+    list("# # #"),
+    list("#  B#"),
+    list("#####"),
+]
+
+# z = haut, s = bas, q = gauche, d = droite (comme dans minecraft :) )
+DIRECTIONS = {
+    "z": (0, -1),
+    "s": (0, 1),
+    "q": (-1, 0),
+    "d": (1, 0),
+}
+
 
 def menu_actions_disponible():
-    action = deque(['Feu','Glace','Eclair','Lave','Eau','Terre','Magie','Temps']) 
-    return action
-lulu_joueur = 10
-lulu_IA = 10
-regle= """Régles du jeux : Le but est de tuer le dark magician; chaque élément donne des dégats. \n " \
-    "Si le dark magician lance une action complémentaire à notre attaque, \n
-    un seul prend les dégats de pv : la difference des dégats des 2attaques, \n" \
-    " si pendant deux attaques de suite l'utilisateur ne recoit pas de degats, \n" \
-    " c'est a dire qu'il a pu obtenir deux attaques complémentaire d'affilé \n" \
-    "et que ses deux attaques complémentaires étaient de points de dégats plus élevés que le dark magician \n" \
-    "alors on gagne 6 points de vie en plus /n" \
-    "on peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux "
-    "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)\n" \
-    "quand l'utilisateur/l'ia aura 20 lulu, le user / l'ia pourra se deplacer," \
-    " le joueur dapres lancera une attaus sans toucher l'adversaire." \
-    "le joueur gagne quand il arrive a la postition de l'autre joueur\n" \
-    "toute attaque est comptabilisé si et sueleement le joueur précedent n'a pas bougé \n
-    si le joueur A ou le joueur B arrive à la position du joueur B ou A alors le joueur A a gagne."""
+    return deque(['Feu', 'Glace', 'Foudre', 'Lave', 'Eau', 'Terre', 'Magie', 'Temps']) # file
+
+
+# --- Les cartes ---
+degat_elements = {
+    "Feu": 10,
+    "Eau": 12,
+    "Glace": 8,
+    "Lave": 12,
+    "Foudre": 14,
+    "Terre": 16,
+    "Magie": 20,
+    "Temps": 18,
+}
+
+# Chaque carte a une seule complémentaire
+carte_complementaire = {
+    "Feu": "Eau",
+    "Eau": "Feu",
+    "Glace": "Lave",
+    "Lave": "Glace",
+    "Foudre": "Terre",
+    "Terre": "Foudre",
+    "Magie": "Temps",
+    "Temps": "Magie",
+}
+
+
+# --- Textes affichés ---
+regle = """But : tuer le Dark Magician.
+- Chaque carte inflige les dégâts indiqués ci-dessous.
+- Si les deux cartes sont complémentaires, seule la plus faible subit la différence.
+- Une attaque rapporte des lulu (autant de lulu gagnés que de dégats infligés).
+À 20 lulu, tu peux te déplacer (le déplacement coûte 20 lulu).
+- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât. 
+(l'attaque est esquivée)
+- Tu gagnes si le Dark Magician n'a plus de PV, ou si tu arrives sur sa case."""
 
 menu = """| Élément | Points de dégâts |
 |---------|------------------|
@@ -31,7 +72,3 @@ menu = """| Élément | Points de dégâts |
 | Terre   | 16               |
 | Magie   | 20               |
 | Temps   | 18               |"""
-
-
-degat_elements={"Feu": 10, "Eau": 12, "Glace": 8, "Lave": 12, "Foudre": 14, "Terre": 16, "Magie": 20, "Temps": 18}
-carte_complementaire={"Feu":"Eau","Glace":"Lave","Foudre":"Terre","Magie":"Temps","Eau":"Feu","Lave":"Glace","Terre":"Foudre","Temps":"Magie"}

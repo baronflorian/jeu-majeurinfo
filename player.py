@@ -1,15 +1,23 @@
+from collections import deque
+
+
 class Player:
-    """_Class générique d'un joueur humain ou ordi_
-    """
+    """Classe générique d'un joueur (qui sera héritée par l'humain et l'ordinateur)."""
+
     def __init__(self, actions, vie):
         self.vie = vie
-        self.filesdemescartes = actions  # La file sde toutes les action voir dans jeu.py, fn menu desa ction duispo
-        self.lescartes_disponibles = []
+        self.pioche = deque(actions)   # les 4 cartes en réserve modelisées par une file
+        self.cartes_en_main = []       # les 4 cartes visibles et jouables
 
-        # Prendre quatre cartes dans la file
         for i in range(4):
-            carte_suivante = self.filesdemescartes.popleft()
-            self.lescartes_disponibles.append(carte_suivante) 
-    
+            self.cartes_en_main.append(self.pioche.popleft())   # On prend les 4 premières cartes de la pioche 
+
     def est_vivant(self):
         return self.vie > 0
+
+    def jouer_carte(self, indice):
+        """Joue la carte placée à cet indice (0 = première carte), puis fait tourner la main."""
+        carte = self.cartes_en_main.pop(indice)
+        self.cartes_en_main.append(self.pioche.popleft())        # La carte suivante de la pioche entre dans la main
+        self.pioche.append(carte)                                # La carte jouée retourne au bout de la pioche
+        return carte
