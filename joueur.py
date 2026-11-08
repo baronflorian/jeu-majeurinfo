@@ -1,6 +1,5 @@
-import random
-
 import valeur
+from parcours import a_star
 from player import Player
 
 
@@ -31,6 +30,29 @@ class Ordi(Player):
         self.lulu = lulu
         self.protege = False
 
-    def jouer(self): # joue au hasard pour l'instant
-        carte_hasard = random.randrange(len(self.cartes_en_main)) # choisit un nb au hasard entre 0 et 4
-        return self.jouer_carte(carte_hasard)
+    def peut_bouger(self):
+        return self.lulu >= valeur.LULU_POUR_BOUGER
+
+    def choisir_carte(self, carte_joueur=None):
+        """Heuristique : jouer la complémentaire si elle est plus forte,
+        sinon jouer la carte qui fait le plus de dégâts."""
+        if carte_joueur is not None:
+            complementaire = valeur.carte_complementaire[carte_joueur]
+            if complementaire in self.cartes_en_main:
+                if valeur.degat_elements[complementaire] > valeur.degat_elements[carte_joueur]:
+                    numero = self.cartes_en_main.index(complementaire)
+                    return self.jouer_carte(numero)
+
+        # Sinon, on cherche la carte aux dégâts maximaux
+        numero_max = 0
+        for i, carte in enumerate(self.cartes_en_main):
+            if valeur.degat_elements[carte] > valeur.degat_elements[self.cartes_en_main[numero_max]]:
+                numero_max = i
+        return self.jouer_carte(numero_max)
+
+    def choisir_deplacement(self, graphe, position_ordi, position_joueur):
+        """A* : renvoie la prochaine case du chemin vers le joueur, ou None."""
+        chemin = a_star(graphe, position_ordi, position_joueur)
+        if len(chemin) >= 2:
+            return chemin[1]
+        return None
