@@ -117,14 +117,16 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
 
 def main():
     menu_de_debut()
-
+    choix_plateaux = {"1": "petit", "2": "moyen", "3": "grand"}
+    choix = input("Choisis un plateau, 1 pour petit, 2 pour moyen, 3 pour grand")
+    while choix not in choix_plateaux:
+        choix = input("Choix invalide. Tape 1, 2 ou 3")
+    valeur.changer_plateau(choix_plateaux[choix])
     joueur = Joueur(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     ordi = Ordi(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     graphe = construire_graphe(valeur.plateau)
-
     while True:
         action = demander_action(joueur, ordi)
-
         if action == "q":           # quitter le jeu
             print("À bientôt !")
             return

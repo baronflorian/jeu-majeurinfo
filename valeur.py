@@ -16,7 +16,7 @@ plateaux = {
         "#  B#",
         "#####",
     ],
-    "labyrinthe": [
+    "moyen": [
         "#########",
         "#A      #",
         "# ##### #",
@@ -27,7 +27,7 @@ plateaux = {
         "#      B#",
         "#########",
     ],
-    "piliers": [
+    "grand": [
         "###########",
         "#A        #",
         "# ## ### ##",
@@ -43,8 +43,9 @@ plateaux = {
 }
 
 # Pour changer de plateau, remplace "petit" par "labyrinthe" ou "piliers".
-plateau = [list(ligne) for ligne in plateaux["petit"]]
-
+def changer_plateau(nom):
+    global plateau
+    plateau = [list(ligne) for ligne in plateaux[nom]]
 # z = haut, s = bas, q = gauche, d = droite (comme dans minecraft :) )
 DIRECTIONS = {
     "z": (0, -1),
@@ -76,6 +77,7 @@ carte_complementaire = {
     "Eau": "Feu",
     "Glace": "Lave",
     "Lave": "Glace",
+    "Glace": "Lave",
     "Foudre": "Terre",
     "Terre": "Foudre",
     "Magie": "Temps",
