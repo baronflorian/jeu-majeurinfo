@@ -1,16 +1,19 @@
 lire et comprendre tout le code et sa structure
 
-choix de plateau au debut du jeu
+choix de plateau au debut du jeu (je lai fait florian)
 faire les fichiers README.md et GAME.md (?)
 rediger une règle claire
-
+lucie je te laisse faire un  systeme de temps avec un temps plus long pr les cartes qui font plus de degats
 #marie claire et christine
 on perd trop facilement:
     rajouter un truc pour se soigner 
-        on se soigne en utilisant des lulu (combien?)
+        on se soigne en utilisant des lulu (combien? 5) 
+        (ce que jai rajoute si on a 5lulu on peut se soigner tel que on ait 5 point de vie de plus)
+        (jai rajouté  le systeme pr se soigner et un niveaj qui depend qu point de lulu recupere par lordi avzc coeff multipliateur en fn de la difficulte)
+        pr plus equitable on peut se deplacer quand on a au moins 34lulu/38 (quil yes au moins 2 tours qui se pasent avant qu'on puisse se deplacer(sauf pr les grosse cartes)) a fairz
         combien de pv on gagne?
         on se fait pas attaquer apres s'etre soigner 
-        l'ia a beaucoup de pv au debut de la partie et ne peut pas se soigner
+        l'ia a beaucoup de pv au debut de la partie et ne peut pas se soigner (a jai pas fait ca faut envlever pr que lia ne puisse pas se soigner)
     
     mettre plus de pv au debut
 

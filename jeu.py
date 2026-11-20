@@ -27,13 +27,21 @@ def demander_action(joueur, ordi):
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
-        print("a = attaquer   d = se déplacer   q = quitter")
+        print("a = attaquer   d = se déplacer   s = se soigner   q = quitter")
         choix = input("Ton choix : ").lower()
 
         if choix == "a":
             return "a"
         if choix == "q":
             return "q"
+        if choix == "s":
+            if joueur.lulu_soin >= valeur.LULU_POUR_SOIGNER:
+                joueur.lulu_soin -= valeur.LULU_POUR_SOIGNER
+                joueur.vie += valeur.PV_SOIGNES
+                print(f"Tu récupères {valeur.PV_SOIGNES} PV.")
+            else:
+                print(f"Il te faut {valeur.LULU_POUR_SOIGNER} lulu de soin.")
+            continue
         if choix == "d":
             if joueur.peut_bouger():
                 return "d"
@@ -58,7 +66,12 @@ def demander_direction():
         return resultat
 
 
-def tour_ordi(ordi, joueur, graphe, carte_joueur):
+def tour_ordi(ordi, joueur, graphe, carte_joueur, action):
+    # le joeur ordi se soigne si il lui manque 5 pv sinon il joue (peut etre modfier pour quil le soigne svnt)
+    if ordi.lulu_soin >= valeur.LULU_POUR_SOIGNER and ordi.vie <= valeur.VIE_DEPART - valeur.PV_SOIGNES:
+        ordi.lulu_soin -= valeur.LULU_POUR_SOIGNER
+        ordi.vie += valeur.PV_SOIGNES
+        print(f"Le Dark Magician récupère {valeur.PV_SOIGNES} PV.")
     """L'Ordi se déplace s'il a 20 lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
     position_ordi = trouver_position(valeur.plateau, "A")
@@ -76,6 +89,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
                 degats = 0
             ordi.vie -= degats
             joueur.lulu += degats
+            joueur.lulu_soin += degats / 2
             print(f"\nTon attaque inflige {degats} dégâts au Dark Magician.")
             if not ordi.est_vivant():
                 return False
@@ -87,7 +101,8 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
         return ecrasement
-
+    if action == "s":
+        return False
     # L'Ordi attaque
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
@@ -106,9 +121,13 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
 
     joueur.vie -= degats_joueur
     ordi.vie -= degats_ordi
+
     joueur.lulu += degats_ordi
-    ordi.lulu += degats_joueur
-    joueur.protege = False
+    joueur.lulu_soin += degats_ordi / 4 # il faut au moins attendre un 2 tour pr se soigner pr ca que je div par 4 et pas par 2
+
+    lulu_total_ordi = degats_joueur * ordi.multiplicateur_lulu # calcule en fc du cooef qui dpeend de la difficulte choise pas lutilisateur.
+    ordi.lulu += lulu_total_ordi
+    ordi.lulu_soin += lulu_total_ordi / 4    
     ordi.protege = False
 
     print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
@@ -118,12 +137,17 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
 def main():
     menu_de_debut()
     choix_plateaux = {"1": "petit", "2": "moyen", "3": "grand"}
-    choix = input("Choisis un plateau, 1 pour petit, 2 pour moyen, 3 pour grand")
+    choix = input("Choisis un plateau, 1 pour petit, 2 pour moyen, 3 pour grand. \n")
     while choix not in choix_plateaux:
-        choix = input("Choix invalide. Tape 1, 2 ou 3")
+        choix = input("Choix invalide. Tape 1, 2 ou 3.\n")
     valeur.changer_plateau(choix_plateaux[choix])
     joueur = Joueur(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     ordi = Ordi(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
+    difficultes = {"1": 0.85, "2": 1, "3": 1.15}
+    choix_difficulte = input("Difficulté (1 = facile, 2 = moyen, 3 = difficile) : ")
+    while choix_difficulte not in difficultes:
+        choix_difficulte = input("Tape 1, 2 ou 3 : ")
+    ordi.multiplicateur_lulu = difficultes[choix_difficulte]
     graphe = construire_graphe(valeur.plateau)
     while True:
         action = demander_action(joueur, ordi)
@@ -141,10 +165,15 @@ def main():
                 afficher_plateau()
                 print("Tu as écrasé le Dark Magician. Tu gagnes !")
                 return
+        elif action == "s":
+            joueur.lulu -= valeur.LULU_POUR_SOIGNER
+            joueur.vie += valeur.PV_SOIGNES
+            print(f"Tu récupères {valeur.PV_SOIGNES} PV.")
+
         else:                       # attaquer
             carte_joueur = joueur.choisir_carte()
 
-        ecrasement_ordi = tour_ordi(ordi, joueur, graphe, carte_joueur)
+        ecrasement_ordi = tour_ordi(ordi, joueur, graphe, carte_joueur, action)
         if ecrasement_ordi:
             afficher_plateau()
             print("Le Dark Magician t'a écrasé. Tu perds...")
