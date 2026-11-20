@@ -1,5 +1,22 @@
+lire et comprendre tout le code et sa structure
+
 choix de plateau au debut du jeu
-faire les fichiers README.md GAME.md (?)
-on perd trop facilement rajouter un truc pour se soigner et plus de pv
+faire les fichiers README.md et GAME.md (?)
+rediger une règle claire
+
+#marie claire et christine
+on perd trop facilement:
+    rajouter un truc pour se soigner 
+        on se soigne en utilisant des lulu (combien?)
+        combien de pv on gagne?
+        on se fait pas attaquer apres s'etre soigner 
+        l'ia a beaucoup de pv au debut de la partie et ne peut pas se soigner
+    
+    mettre plus de pv au debut
+
+    dans le labyrinthe
+        le but est de se rentrer dedans mais c'est bizarre d'avoir le mm but?
+        peut etre il faut que l'ia nous fuit? mais faudrait refaire l'algorithme a* donc 
+
 mettre une difficulte sur l'ia
 sur le plateau changer les noms A en M et B en J
