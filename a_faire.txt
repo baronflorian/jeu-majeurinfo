@@ -1,0 +1,5 @@
+choix de plateau au debut du jeu
+faire les fichiers README.md GAME.md (?)
+on perd trop facilement rajouter un truc pour se soigner et plus de pv
+mettre une difficulte sur l'ia
+sur le plateau changer les noms A en M et B en J
