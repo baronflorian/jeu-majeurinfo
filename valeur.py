@@ -4,8 +4,8 @@ from collections import deque
 VIE_DEPART = 80
 LULU_DEPART = 0
 LULU_POUR_BOUGER = 20
-LULU_POUR_SOIGNER = 10
-PV_SOIGNES = 5
+LULU_POUR_SOIGNER = 5
+PV_SOIGNES = 10
 
 # --- Plateaux possibles ---
 # A = Dark Magician, B = joueur, # = mur, espace = case libre.

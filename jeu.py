@@ -23,6 +23,22 @@ def afficher_etat(joueur, ordi):
     print(f"Dark Magician : {ordi.vie} PV | {ordi.lulu} lulu")
 
 
+def soigner(joueur):
+    if joueur.vie >= valeur.VIE_DEPART:
+        print("Tu es déjà à 80 PV.")
+        return False
+    if joueur.lulu < valeur.LULU_POUR_SOIGNER:
+        print(f"Il te faut {valeur.LULU_POUR_SOIGNER} lulu pour te soigner.")
+        return False
+
+    joueur.lulu -= valeur.LULU_POUR_SOIGNER
+    vie_avant = joueur.vie
+    joueur.vie = min(valeur.VIE_DEPART, joueur.vie + valeur.PV_SOIGNES)
+    pv_recuperes = joueur.vie - vie_avant
+    print(f"Tu récupères {pv_recuperes} PV et utilises {valeur.LULU_POUR_SOIGNER} lulu.")
+    return True
+
+
 def demander_action(joueur, ordi):
     while True:
         afficher_plateau()
@@ -35,12 +51,8 @@ def demander_action(joueur, ordi):
         if choix == "q":
             return "q"
         if choix == "s":
-            if joueur.lulu_soin >= valeur.LULU_POUR_SOIGNER:
-                joueur.lulu_soin -= valeur.LULU_POUR_SOIGNER
-                joueur.vie += valeur.PV_SOIGNES
-                print(f"Tu récupères {valeur.PV_SOIGNES} PV.")
-            else:
-                print(f"Il te faut {valeur.LULU_POUR_SOIGNER} lulu de soin.")
+            if soigner(joueur):
+                return "s"
             continue
         if choix == "d":
             if joueur.peut_bouger():
@@ -67,10 +79,10 @@ def demander_direction():
 
 
 def tour_ordi(ordi, joueur, graphe, carte_joueur, action):
-    # le joeur ordi se soigne si il lui manque 5 pv sinon il joue (peut etre modfier pour quil le soigne svnt)
-    if ordi.lulu_soin >= valeur.LULU_POUR_SOIGNER and ordi.vie <= valeur.VIE_DEPART - valeur.PV_SOIGNES:
-        ordi.lulu_soin -= valeur.LULU_POUR_SOIGNER
-        ordi.vie += valeur.PV_SOIGNES
+    # L'Ordi se soigne avec 5 lulu s'il a moins de 10 PV.
+    if ordi.lulu >= valeur.LULU_POUR_SOIGNER and ordi.vie <= valeur.VIE_DEPART - valeur.PV_SOIGNES:
+        ordi.lulu -= valeur.LULU_POUR_SOIGNER
+        ordi.vie = min(valeur.VIE_DEPART, ordi.vie + valeur.PV_SOIGNES)
         print(f"Le Dark Magician récupère {valeur.PV_SOIGNES} PV.")
     """L'Ordi se déplace s'il a 20 lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
@@ -134,6 +146,46 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, action):
     return False
 
 
+def afficher_attaque_ordi(ordi, carte_ordi):
+    print(f"\nLe Dark Magician lance {carte_ordi}.")
+    complementaire = valeur.carte_complementaire[carte_ordi]
+    degats_complementaire = valeur.degat_elements[complementaire]
+    degat_attaque = valeur.degat_elements[carte_ordi]
+    print(f"Attaque : {carte_ordi} ({degat_attaque} dégâts).")
+    print(f"Attaque complémentaire : {complementaire} ({degats_complementaire} dégâts).")
+
+
+def tour_ordi_en_premier(ordi, joueur):
+    """Fait jouer une attaque à l'Ordi avant que le joueur ne joue."""
+    if ordi.lulu >= valeur.LULU_POUR_SOIGNER and ordi.vie <= valeur.VIE_DEPART - valeur.PV_SOIGNES:
+        ordi.lulu -= valeur.LULU_POUR_SOIGNER
+        ordi.vie = min(valeur.VIE_DEPART, ordi.vie + valeur.PV_SOIGNES)
+        print(f"Le Dark Magician récupère {valeur.PV_SOIGNES} PV.")
+
+    carte_ordi = ordi.choisir_carte()
+    afficher_attaque_ordi(ordi, carte_ordi)
+    return carte_ordi
+
+
+def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
+    """Résout l'attaque du joueur après une attaque de l'Ordi en premier."""
+    degats_joueur, degats_ordi = attaque.resoudre(carte_joueur, carte_ordi)
+
+    if joueur.protege:
+        degats_joueur = 0
+    if ordi.protege:
+        degats_ordi = 0
+
+    joueur.vie -= degats_joueur
+    ordi.vie -= degats_ordi
+    joueur.lulu += degats_ordi
+    joueur.lulu_soin += degats_ordi / 4
+    ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
+    ordi.lulu_soin += degats_joueur * ordi.multiplicateur_lulu / 4
+
+    print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
+
+
 def main():
     menu_de_debut()
     choix_plateaux = {"1": "petit", "2": "moyen", "3": "grand"}
@@ -149,35 +201,69 @@ def main():
         choix_difficulte = input("Tape 1, 2 ou 3 : ")
     ordi.multiplicateur_lulu = difficultes[choix_difficulte]
     graphe = construire_graphe(valeur.plateau)
+    ordi_commence = True
+
     while True:
-        action = demander_action(joueur, ordi)
-        if action == "q":           # quitter le jeu
-            print("À bientôt !")
-            return
+        carte_ordi = None
 
-        carte_joueur = None
-        if action == "d":           # se deplacer
-            ecrasement = demander_direction()
-            joueur.lulu -= valeur.LULU_POUR_BOUGER
-            joueur.protege = True
+        if ordi_commence:
+            print("\nLe Dark Magician commence ce tour.")
+            carte_ordi = tour_ordi_en_premier(ordi, joueur)
 
-            if ecrasement:
-                afficher_plateau()
-                print("Tu as écrasé le Dark Magician. Tu gagnes !")
+            if not joueur.est_vivant():
+                print("Tu n'as plus de PV. Le Dark Magician gagne...")
                 return
-        elif action == "s":
-            joueur.lulu -= valeur.LULU_POUR_SOIGNER
-            joueur.vie += valeur.PV_SOIGNES
-            print(f"Tu récupères {valeur.PV_SOIGNES} PV.")
 
-        else:                       # attaquer
-            carte_joueur = joueur.choisir_carte()
+            action = demander_action(joueur, ordi)
+            if action == "q":
+                print("À bientôt !")
+                return
 
-        ecrasement_ordi = tour_ordi(ordi, joueur, graphe, carte_joueur, action)
-        if ecrasement_ordi:
-            afficher_plateau()
-            print("Le Dark Magician t'a écrasé. Tu perds...")
-            return
+            if action == "d":
+                ecrasement = demander_direction()
+                joueur.lulu -= valeur.LULU_POUR_BOUGER
+                joueur.protege = True
+                ordi.protege = False
+
+                if ecrasement:
+                    afficher_plateau()
+                    print("Tu as écrasé le Dark Magician. Tu gagnes !")
+                    return
+            elif action == "s":
+                print("Tu es protégé par ton soin : tu ne subis aucune attaque.")
+            else:
+                carte_joueur = joueur.choisir_carte()
+                resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
+        else:
+            print("\nTu commences ce tour.")
+            action = demander_action(joueur, ordi)
+            if action == "q":
+                print("À bientôt !")
+                return
+
+            carte_joueur = None
+            if action == "d":
+                ecrasement = demander_direction()
+                joueur.lulu -= valeur.LULU_POUR_BOUGER
+                joueur.protege = True
+
+                if ecrasement:
+                    afficher_plateau()
+                    print("Tu as écrasé le Dark Magician. Tu gagnes !")
+                    return
+            elif action == "s":
+                print("Tu es protégé par ton soin : tu ne subis aucune attaque.")
+            else:
+                carte_joueur = joueur.choisir_carte()
+
+            if action != "s":
+                ecrasement_ordi = tour_ordi(ordi, joueur, graphe, carte_joueur, action)
+                if ecrasement_ordi:
+                    afficher_plateau()
+                    print("Le Dark Magician t'a écrasé. Tu perds...")
+                    return
+
+        ordi_commence = not ordi_commence
 
         print()
 
