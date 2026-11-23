@@ -23,3 +23,4 @@ on perd trop facilement:
 
 mettre une difficulte sur l'ia
 sur le plateau changer les noms A en M et B en J
+le joeur doit sortir du labyrinuthe en bas a droite et lia tjrs pareil doit suuivre le joeur.
