@@ -80,16 +80,19 @@ def a_star(graphe, depart, arrivee):
 
 def deplacer_vers(plateau, lettre, nx, ny):
     """Déplace `lettre` sur la case (nx, ny).
-    Renvoie None si impossible, True s'il écrase l'autre, False sinon."""
+    Renvoie le contenu initial de la case, ou None si le déplacement est bloqué."""
     x, y = trouver_position(plateau, lettre)
     if not position_valide(plateau, nx, ny):
         return None
 
-    ecrasement = plateau[ny][nx] != " "      # True s'il écrase l'autre
-                                            # False si il va sur une case vide
-    plateau[y][x] = " "                      # on vide la case où il était
-    plateau[ny][nx] = lettre                 # on écrit le joueur dans sa nouvelle case
-    return ecrasement
+    destination = plateau[ny][nx]
+    cases_accessibles = (" ", "|") if lettre == "B" else (" ", "B")
+    if destination not in cases_accessibles:
+        return None
+
+    plateau[y][x] = " "
+    plateau[ny][nx] = lettre
+    return destination
 
 
 def bouger(plateau, lettre, direction):

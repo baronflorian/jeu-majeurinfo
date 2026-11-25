@@ -3,35 +3,35 @@ from collections import deque
 # --- Réglages du jeu ---
 VIE_DEPART = 80
 LULU_DEPART = 0
-LULU_POUR_BOUGER = 20
-LULU_POUR_SOIGNER = 5
-PV_SOIGNES = 10
+LULU_POUR_BOUGER = 22
+LULU_POUR_SOIGNER = 10
+PV_SOIGNES = 14
 
 # --- Plateaux possibles ---
-# A = Dark Magician, B = joueur, # = mur, espace = case libre.
-# Chaque ligne doit avoir la même longueur et le plateau doit être entouré de murs.
+# A = Dark Magician, B = joueur, # = mur, | = sortie, espace = case libre.
+# Chaque ligne doit avoir la même longueur. La sortie est une ouverture dans un mur extérieur.
 plateaux = {
     "petit": [
         "#####",
-        "#A  #",
+        "#B  #",
         "# # #",
-        "#  B#",
+        "#  A|",
         "#####",
     ],
     "moyen": [
         "#########",
-        "#A      #",
+        "#B      #",
         "# ##### #",
         "#   #   #",
         "### # ###",
         "#   #   #",
         "# ##### #",
-        "#      B#",
+        "#      A|",
         "#########",
     ],
     "grand": [
         "###########",
-        "#A        #",
+        "#B        #",
         "# ## ### ##",
         "#         #",
         "# ## # ## #",
@@ -39,7 +39,7 @@ plateaux = {
         "# ## # ## #",
         "#         #",
         "# ## ### ##",
-        "#        B#",
+        "#        A|",
         "###########",
     ],
 }
@@ -87,15 +87,15 @@ carte_complementaire = {
 }
 
 
-# --- Textes affichés ---
-regle = """But : tuer le Dark Magician.
+#  Textes affichés
+regle = """Tu gagnes si tu bats le Dark Magician avec tes attaques ou si tu atteins la sortie | du labyrinthe.
+- Tu perds si le Dark Magician arrive sur ta case ou si ses attaques te font perdre tous tes PV.
+- Sur le plateau, B te représente et A représente le Dark Magician. Sa case bloque ton passage.
 - Chaque carte inflige les dégâts indiqués ci-dessous.
 - Si les deux cartes sont complémentaires, seule la plus faible subit la différence.
 - Une attaque rapporte des lulu (autant de lulu gagnés que de dégats infligés).
-À 20 lulu, tu peux te déplacer (le déplacement coûte 20 lulu).
-- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât. 
-(l'attaque est esquivée)
-- Tu gagnes si le Dark Magician n'a plus de PV, ou si tu arrives sur sa case."""
+- À 22 lulu, tu peux te déplacer ou/et te soigner +14pv (se soigner coûte 12 lulu)
+- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât (l'attaque est esquivée)."""
 
 menu = """| Élément | Points de dégâts |
 |---------|------------------|

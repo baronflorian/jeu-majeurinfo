@@ -7,7 +7,6 @@ class Joueur(Player):
     def __init__(self, actions, vie, lulu):
         super().__init__(actions, vie)
         self.lulu = lulu
-        self.lulu_soin = 0
         self.protege = False # si le joueur vient de se déplacer, il sera protégé
 
     def peut_bouger(self):
@@ -29,7 +28,6 @@ class Ordi(Player):
     def __init__(self, actions, vie, lulu):
         super().__init__(actions, vie)
         self.lulu = lulu
-        self.lulu_soin = 0
         self.protege = False
 
     def peut_bouger(self):
