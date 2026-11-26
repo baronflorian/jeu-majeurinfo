@@ -19,8 +19,25 @@ class Joueur(Player):
 
         while True:
             choix = input("Choisis une carte (1 à 4) : ")
+            
             if choix.isdigit() and 1 <= int(choix) <= 4: # verifier que la carte choisie est valide
-                return self.jouer_carte(int(choix) - 1)
+                indice = int(choix) - 1
+                carte = self.cartes_en_main[indice]
+                if carte=="Foudre" or carte=="Terre":
+                    if self.lulu>=2:
+                        self.lulu-=2
+                        return self.jouer_carte(indice)
+                    else:
+                        print("tu n'a pas assez de lulu pour jouer cette carte")
+                        continue
+                if carte=="Magie" or carte=="Temps":
+                    if self.lulu>=4:
+                        self.lulu-=4
+                        return self.jouer_carte(indice)
+                    else:
+                        print("tu n'a pas assez de lulu pour jouer cette carte")
+                        continue
+                return self.jouer_carte(indice)
             print("Choix invalide, réessaie.")
 
 

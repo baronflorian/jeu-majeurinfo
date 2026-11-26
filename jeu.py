@@ -122,7 +122,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
-        return destination == "B"
+        return destination is True
     # L'Ordi attaque
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
@@ -159,11 +159,30 @@ def afficher_attaque_ordi(ordi, carte_ordi):
     print(f"Attaque complémentaire : {complementaire} ({degats_complementaire} dégâts).")
 
 
-def tour_ordi_en_premier(ordi, joueur):
-    """Fait jouer une attaque à l'Ordi avant que le joueur ne joue."""
+def tour_ordi_en_premier(ordi, graphe, joueur):
+    """Déplace ou fait attaquer l'Ordi avant l'action du joueur.
+
+    Renvoie (carte jouée, joueur écrasé). La carte vaut None si l'Ordi s'est déplacé.
+    """
+    position_ordi = trouver_position(valeur.plateau, "A")
+    position_joueur = trouver_position(valeur.plateau, "B")
+
+    suivante = None
+    if ordi.peut_bouger():
+        suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
+
+    if suivante is not None:
+        ordi.protege = False
+        destination = deplacer_vers(valeur.plateau, "A", suivante[0], suivante[1])
+        ordi.lulu -= valeur.LULU_POUR_BOUGER
+        ordi.protege = True
+        print("\nLe Dark Magician se déplace.")
+        joueur.protege = False
+        return None, destination is True
+
     carte_ordi = ordi.choisir_carte()
     afficher_attaque_ordi(ordi, carte_ordi)
-    return carte_ordi
+    return carte_ordi, False
 
 
 def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
@@ -181,6 +200,16 @@ def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
     ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
 
     print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
+    ordi.protege = False
+
+
+def resoudre_attaque_joueur_seule(ordi, joueur, carte_joueur):
+    """Applique l'attaque du joueur si l'Ordi s'est déplacé au début du tour."""
+    degats = valeur.degat_elements[carte_joueur]
+    ordi.vie -= degats
+    joueur.lulu += degats
+    ordi.protege = False
+    print(f"\nTon attaque inflige {degats} dégâts au Dark Magician.")
 
 
 def main():
@@ -205,7 +234,11 @@ def main():
 
         if ordi_commence:
             print("\nLe Dark Magician commence ce tour.")
-            carte_ordi = tour_ordi_en_premier(ordi, joueur)
+            carte_ordi, joueur_ecrase = tour_ordi_en_premier(ordi, graphe, joueur)
+            if joueur_ecrase:
+                afficher_plateau()
+                print("Le Dark Magician t'a écrasé. Tu perds...")
+                return
         else:
             print("\nTu commences ce tour.")
 
@@ -230,8 +263,11 @@ def main():
             carte_joueur = joueur.choisir_carte()
 
         if ordi_commence:
-            if carte_joueur is not None:
-                resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
+            if carte_ordi is not None:
+                if carte_joueur is not None:
+                    resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
+            elif carte_joueur is not None:
+                resoudre_attaque_joueur_seule(ordi, joueur, carte_joueur)
         elif tour_ordi(ordi, joueur, graphe, carte_joueur):
             afficher_plateau()
             print("Le Dark Magician t'a écrasé. Tu perds...")
