@@ -200,7 +200,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
                 return False
 
         ordi.protege = False
-        destination = deplacer_vers(valeur.plateau, "A", suivante[0], suivante[1])
+        destination = parcours.deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
         ordi.lulu -= valeur.LULU_POUR_BOUGER
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")

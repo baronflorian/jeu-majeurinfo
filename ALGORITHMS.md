@@ -1,7 +1,9 @@
 # Heuristique de choix des actions du Dark Magicien:
 *Le Dark Magicien suit une stratégie basée sur des règles de priorité afin de choisir l'action qui lui semble la plus avantageuse.*
 
-Le Dark Magicien cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
+si le dark magicien a moin de 10 pv il va se soigner en priorité afin de ne pas perdre la partie 
+
+Si il n'a pas besoin de se soigner le Dark Magicien cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
 
 Si le déplacement n'est pas possible, le Dark Magicien cherche à infliger le maximum de dégâts au joueur.
 
@@ -10,8 +12,23 @@ Pour cela, son choix dépend de l'ordre de jeu :
 
 - si il joue en premier ou qu'il ne possède pas de carte complementaire plus puissante : il choisit simplement la carte ayant la puissance d'attaque la plus élevée parmi celles disponibles dans sa main.
 
+Au niveau 3, le Dark Magicien adopte une stratégie plus élaborée. Contrairement aux niveaux précédents, il ne cherche plus systématiquement à se déplacer dès que cela est possible. Il analyse désormais la position du joueur par rapport à la sienne, mais également la distance qui sépare le joueur de la sortie du labyrinthe.
+
+Son objectif de déplacement peut ainsi évoluer selon trois situations :
+
+Le joueur est trop éloigné : le Dark Magicien préfère rester sur place et attendre que le joueur se rapproche. Cela lui permet d'économiser ses lulus plutôt que de dépenser des ressources pour parcourir inutilement le labyrinthe. Il peut ainsi conserver ses ressources pour ses attaques.
+
+Le joueur se rapproche dangereusement de la sortie : le Dark Magicien change de stratégie et se dirige vers la sortie afin de la défendre et d'empêcher le joueur de gagner en s'échappant du labyrinthe.
+
+Le joueur se rapproche trop du Dark Magicien : celui-ci abandonne temporairement la défense de la sortie pour se concentrer à nouveau sur la poursuite du joueur. Il cherche ainsi à ne pas laisser le joueur s'échapper et à tenter de l'éliminer directement.
+
+Lorsque le déplacement ou le soin ne sont pas prioritaires, le Dark Magicien conserve sa stratégie de choix des cartes : il cherche à profiter des cartes complémentaires lorsqu'elles sont avantageuses et, dans les autres cas, joue la carte qui inflige le plus de dégâts.
+
+
+
 Ces heuristiques ont été choisies pour privilégier les actions les plus avantageuses. Le **déplacement est prioritaire** car il peut permettre au Dark Magicien de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
 
+Au niveau 3, l'IA continue de privilégier les actions les plus avantageuse mais elle ne se contente plus de prioritiser le déplacement et de maximiser les dégats elle prend en compte différents éléments stratégiques. Ces choix permettent d'obtenir une IA plus réactive, capable de changer d'objectif en fonction de l'évolution de la partie. Elle cherche ainsi à équilibrer trois objectifs : économiser ses ressources, empêcher le joueur de s'échapper et éviter d'être vaincue.
 
 
 ## Les structures de données utilisées
