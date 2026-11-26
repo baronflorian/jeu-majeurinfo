@@ -71,12 +71,12 @@ def demander_action2(joueur, ordi):
         if soin_utilise:
             option_soin = ""
         else:
-            option_soin = "s pour soigner"
-        print(f"Le Dark Magicien s'est déplacé tu ne peux pas l'attaquer")
-        print(f"d pour se déplacer   {option_soin}q pour quitter")
-        choix = input("Ton choix : ").strip().lower()
-        
-        if choix in ("q"):
+            option_soin = "s pour se soigner   "
+        print("Le Dark Magicien s'est déplacé, tu ne peux pas l'attaquer.")
+        print(f"d pour se déplacer   {option_soin} q pour quitter   Entrée pour passer")
+        choix = input("Ton choix : ")
+
+        if choix in ("", "q"):
             return choix, soin_utilise
         if choix == "s":
             if soin_utilise:
@@ -97,7 +97,7 @@ def proposer_soin_apres_action(joueur, ordi):
 
     afficher_etat(joueur, ordi)
     while True:
-        choix = input("tape : s pour se soigner ou Entrée = terminer le tour : ")
+        choix = input("tape : s pour se soigner ou Entrée = terminer le tour : ").strip().lower()
         if choix == "s":
             soigner(joueur)
             return
@@ -260,24 +260,14 @@ def main():
             if joueur_ecrase:
                 afficher_plateau()
                 print("Le Dark Magician t'a écrasé. Tu perds...")
-
                 return
-            if carte_ordi is None:
-                action, soin_utilise = demander_action2(joueur, ordi)
-                if action == "q":
-                    print("À bientôt !")
-                    return
-            else:
-                action, soin_utilise = demander_action(joueur, ordi)
-                if action == "q":
-                    print("À bientôt !")
-                    return
-
-            
         else:
-            print("\nTu commences ce tour.")
+            print("\nTu joues en premier ce tour.")
 
-        action, soin_utilise = demander_action(joueur, ordi)
+        if ordi_commence and carte_ordi is None:
+            action, soin_utilise = demander_action2(joueur, ordi)
+        else:
+            action, soin_utilise = demander_action(joueur, ordi)
         if action == "q":
             print("À bientôt !")
             return
