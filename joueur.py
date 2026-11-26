@@ -51,9 +51,25 @@ class Ordi(Player):
         super().__init__(actions, vie)
         self.lulu = lulu
         self.protege = False
+        self.niveau_difficulte = 2
 
     def peut_bouger(self):
         return self.lulu >= valeur.LULU_POUR_BOUGER
+
+    def soin_ordi(self):
+        if not self.peut_se_soigner():
+            return False
+
+        vie_avant = self.vie
+        self.lulu -= valeur.LULU_POUR_SOIGNER
+        self.vie = min(valeur.VIE_DEPART, self.vie + valeur.PV_SOIGNES)
+        pv_recuperes = self.vie - vie_avant
+        print(f"Le Dark Magician récupère {pv_recuperes} PV.")
+        return True
+
+    def peut_se_soigner(self):
+        return self.lulu >= valeur.LULU_POUR_SOIGNER and self.vie < valeur.VIE_DEPART
+
 
     def choisir_carte(self, carte_joueur=None):
         """Heuristique : jouer la complémentaire si elle est plus forte,
@@ -72,9 +88,12 @@ class Ordi(Player):
                 numero_max = i
         return self.jouer_carte(numero_max)
 
-    def choisir_deplacement(self, graphe, position_ordi, position_joueur):
-        """A* : renvoie la prochaine case du chemin vers le joueur, ou None."""
-        chemin = a_star(graphe, position_ordi, position_joueur)
+    def choisir_deplacement(self, graphe, position_ordi, position_cible):
+        """Renvoie le premier pas du chemin le plus court vers une ou plusieurs cibles."""
+        cibles = [position_cible] if isinstance(position_cible, tuple) else position_cible
+        if position_ordi in cibles:
+            return None
+        chemin = a_star(graphe, position_ordi, position_cible)
         if len(chemin) >= 2:
             return chemin[1]
         return None
