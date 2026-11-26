@@ -14,4 +14,87 @@ Ces heuristiques ont été choisies pour privilégier les actions les plus avant
 
 
 
+## Les structures de données utilisées
+
+| Structure | Utilisation dans le code |
+|---|---|
+| Liste de listes (`list[list[str]]`) | les plateaux : chaque case est un caractère (`#`, `J`, `M`, `/`, espace) |
+| Dictionnaire (`dict`) | le graphe : une case libre → la liste des cases libres voisines |
+| File (`deque`) | la pioche de cartes : on pioche au début et on remet la carte jouée à la fin |
+| Liste (`list`) | la main du joueur : 4 cartes visibles |
+| Tas binaire (`heapq`) | la file de priorité de A\*, pour traiter d'abord la case la plus prometteuse |
+| Dictionnaires | les dégâts et les coûts des cartes et les paires complémentaires de cartes |
+
+## Le graphe du labyrinthe
+
+Le plateau est une grille, mais pour que l'IA puisse le parcourir, on le transforme en **graphe** avec `construire_graphe` :
+chaque case libre du plateau devient un **sommet** repéré par ses coordonnées (x,y)
+
+On obtient un dictionnaire de la forme :
+
+```python
+graphe = {
+    (1, 1): [(2, 1), (1, 2)],
+    (2, 1): [(1, 1), (3, 1)],
+    # ...
+}
+```
+
+
+## L'algorithme A\*
+
+A\* sert à trouver le **plus court chemin** entre la case du Dark Magician et celle du joueur.
+
+Pour chaque case, il utilise trois valeurs  :
+
+- `g(n)` : le nombre de pas **déjà faits** depuis le départ ;
+- `h(n)` : une estimation du nombre de pas **restants**, c'est la **distance de Manhattan** :
+  `h(n) = |x - x_joueur| + |y - y_joueur|` ;
+- `f(n) = g(n) + h(n)` : la **priorité** de la case. Plus `f` est petit, plus la case est prometteuse.
+
+Le dictionnaire `couts` retient le plus petit `g` connu pour chaque case : c'est le **nombre minimal de pas** pour l'atteindre depuis le départ.
+
+Dans le code, `a_star` utilise `heapq` pour la file de priorité.
+Elle stocke des triplets (coût estimé, coût réel, position)
+- estimation du coup **total** du chemin passant par cette case : 'f=g+h'
+- coût déjà payé pour atteindre cette case depuis le départ : 'g'
+- position de la case concernée
+
+parents est un dict construit au fur et a mesure  qui retient, pour chaque case visitée, la case par laquelle on est arrivé. Il est utilisé pour reconstruire le chemin du départ à l'arrivée.
+
+### Principe
+
+```text
+file de priorité ← (priorité = h(départ), 0, départ)
+coût du départ ← 0
+
+tant que la file n'est pas vide :
+    sortir la case de plus petite valeur de f (donc de plus grande priorité)
+    si c'est la case du joueur :
+        reconstruire le chemin avec les parents et le renvoyer
+
+    pour chaque voisin de la case :
+        nouveau_coût ← coût de la case + 1
+        si ce coût est meilleur que celui déjà connu :
+            enregistrer le coût
+            noter la case précédente comme un parent
+            ajouter le voisin à la file avec priorité = nouveau_coût + h(voisin)
+```
+
+
+`choisir_deplacement` récupère ce chemin et renvoie **la première case après le départ** : le Dark Magician avance ainsi d'une case par tour vers le joueur.
+
+### Sources
+https://www.datacamp.com/tutorial/a-star-algorithm
+https://fr.wikipedia.org/wiki/Algorithme_A*
+
+## Heuristique gloutonne pour les cartes
+
+Pour le choix de la carte, l'IA ne simule pas toute la partie : elle applique deux règles :
+
+1. jouer la **complémentaire** si elle est en main et **strictement plus forte** 
+2. sinon, jouer la carte qui inflige le **maximum de dégâts**
+
+C'est une heuristique **gloutonne** : elle choisit l'action qui semble la meilleure **immédiatement**, sans prévoir les coups suivants.
+
 
