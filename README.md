@@ -1,13 +1,13 @@
 # Magicien
 ## Règles du jeu
 
-Le joueur B gagne s'il atteint la sortie | ou s'il bat le Dark Magician A avec ses attaques. 
+Le joueur J gagne s'il atteint la sortie | ou s'il bat le Dark Magician M avec ses attaques. 
 On ne peut pas passer par dessus le Dark Magician.
 
 Le joueur perd si le Dark Magician arrive sur sa case ou si ses attaques lui font perdre tous ses PV.
 
 Si le Dark magician lance une action complémentaire à notre attaque,
-un seul prend les dégats de pv : la difference des dégats des deux attaques.
+un seul prend les dégats de pv : la difference des dégats des deux attaques + 2.
     
 On peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux.
 Il est donc impossible de réutiliser deux fois d'affilé la même carte.

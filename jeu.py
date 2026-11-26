@@ -121,7 +121,7 @@ def demander_direction():
             print("Direction invalide.")
             continue    # continue le while sans faire la suite
 
-        resultat = bouger(valeur.plateau, "B", direction)
+        resultat = bouger(valeur.plateau, "J", direction)
         if resultat is None:
             print("Passage bloqué par un mur ou par le Dark Magician.")
             continue
@@ -132,8 +132,8 @@ def demander_direction():
 def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     """L'Ordi se déplace s'il a assez de lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
-    position_ordi = trouver_position(valeur.plateau, "A")
-    position_joueur = trouver_position(valeur.plateau, "B")
+    position_ordi = trouver_position(valeur.plateau, "M")
+    position_joueur = trouver_position(valeur.plateau, "J")
 
     suivante = None
     if ordi.peut_bouger():
@@ -152,12 +152,12 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
                 return False
 
         ordi.protege = False
-        destination = deplacer_vers(valeur.plateau, "A", suivante[0], suivante[1])
+        destination = deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
         ordi.lulu -= valeur.LULU_POUR_BOUGER
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
-        return destination == "B"
+        return destination == "J"
     # L'Ordi attaque
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
@@ -186,8 +186,8 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
     Renvoie (carte jouée, joueur écrasé). La carte vaut None si l'Ordi s'est déplacé.
     """
-    position_ordi = trouver_position(valeur.plateau, "A")
-    position_joueur = trouver_position(valeur.plateau, "B")
+    position_ordi = trouver_position(valeur.plateau, "M")
+    position_joueur = trouver_position(valeur.plateau, "J")
 
     suivante = None
     if ordi.peut_bouger():
@@ -195,12 +195,12 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
     if suivante is not None:
         ordi.protege = False
-        destination = deplacer_vers(valeur.plateau, "A", suivante[0], suivante[1])
+        destination = deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
         ordi.lulu -= valeur.LULU_POUR_BOUGER
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
-        return None, destination == "B"
+        return None, destination == "J"
 
     carte_ordi = ordi.choisir_carte()
     afficher_attaque_ordi(ordi, carte_ordi)

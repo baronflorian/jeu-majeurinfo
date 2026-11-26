@@ -35,16 +35,9 @@ class Joueur(Player):
             if choix in ("1", "2", "3", "4"):
                 indice = int(choix) - 1
                 carte = self.cartes_en_main[indice]
-                if carte == "Foudre" or carte == "Terre":
-                    if self.lulu >= 2:
-                        self.lulu -= 2
-                        return self.jouer_carte(indice)
-                    else:
-                        print("tu n'a pas assez de lulu pour jouer cette carte")
-                        continue
-                if carte == "Magie" or carte == "Temps":
-                    if self.lulu >= 4:
-                        self.lulu -= 4
+                if carte in valeur.cout_cartes:
+                    if self.lulu >= valeur.cout_cartes[carte]:
+                        self.lulu -= valeur.cout_cartes[carte]
                         return self.jouer_carte(indice)
                     else:
                         print("tu n'a pas assez de lulu pour jouer cette carte")

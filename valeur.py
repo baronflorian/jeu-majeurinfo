@@ -8,30 +8,30 @@ LULU_POUR_SOIGNER = 10
 PV_SOIGNES = 14
 
 # --- Plateaux possibles ---
-# A = Dark Magician, B = joueur, # = mur, | = sortie, espace = case libre.
+# M = Dark Magician, J = joueur, # = mur, | = sortie, espace = case libre.
 # Chaque ligne doit avoir la même longueur. La sortie est une ouverture dans un mur extérieur.
 plateaux = {
     "petit": [
         "#####",
-        "#B  #",
+        "#J  #",
         "# # #",
-        "#  A|",
+        "#  M|",
         "#####",
     ],
     "moyen": [
         "#########",
-        "#B      #",
+        "#J      #",
         "# ##### #",
         "#   #   #",
         "### # ###",
         "#   #   #",
         "# ##### #",
-        "#      A|",
+        "#      M|",
         "#########",
     ],
     "grand": [
         "###########",
-        "#B        #",
+        "#J        #",
         "# ## ### ##",
         "#         #",
         "# ## # ## #",
@@ -39,7 +39,7 @@ plateaux = {
         "# ## # ## #",
         "#         #",
         "# ## ### ##",
-        "#        A|",
+        "#        M|",
         "###########",
     ],
 }
@@ -86,7 +86,6 @@ carte_complementaire = {
     "Eau": "Feu",
     "Glace": "Lave",
     "Lave": "Glace",
-    "Glace": "Lave",
     "Foudre": "Terre",
     "Terre": "Foudre",
     "Magie": "Temps",
@@ -98,7 +97,7 @@ carte_complementaire = {
 regle = (
     "Tu gagnes si tu bats le Dark Magician avec tes attaques ou si tu atteins la sortie | du labyrinthe.\n"
     "- Tu perds si le Dark Magician arrive sur ta case ou si ses attaques te font perdre tous tes PV.\n"
-    "- Sur le plateau, B te représente et A représente le Dark Magician. Sa case bloque ton passage.\n"
+    "- Sur le plateau, J te représente et M représente le Dark Magician. Sa case bloque ton passage.\n"
     "- Chaque carte inflige les dégâts indiqués ci-dessous.\n"
     "- Pour jouer Foudre ou Terre, tu dépenses 2 lulu. Pour jouer Magie ou Temps, tu dépenses 4 lulu.\n"
     "- Tes autres cartes sont gratuites.\n"

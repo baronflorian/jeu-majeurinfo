@@ -86,7 +86,7 @@ def deplacer_vers(plateau, lettre, nx, ny):
         return None
 
     destination = plateau[ny][nx]
-    cases_accessibles = (" ", "|") if lettre == "B" else (" ", "B")
+    cases_accessibles = (" ", "|") if lettre == "J" else (" ", "J")
     if destination not in cases_accessibles:
         return None
 
