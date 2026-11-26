@@ -73,6 +73,13 @@ degat_elements = {
     "Temps": 18,
 }
 
+cout_cartes = {
+    "Foudre": 2,
+    "Terre": 2,
+    "Magie": 4,
+    "Temps": 4,
+}
+
 # Chaque carte a une seule complémentaire
 carte_complementaire = {
     "Feu": "Eau",
@@ -87,23 +94,27 @@ carte_complementaire = {
 }
 
 
-#  Textes affichés
-regle = """Tu gagnes si tu bats le Dark Magician avec tes attaques ou si tu atteins la sortie | du labyrinthe.
-- Tu perds si le Dark Magician arrive sur ta case ou si ses attaques te font perdre tous tes PV.
-- Sur le plateau, B te représente et A représente le Dark Magician. Sa case bloque ton passage.
-- Chaque carte inflige les dégâts indiqués ci-dessous.
-- Si les deux cartes sont complémentaires, seule la plus faible subit la différence.
-- Une attaque rapporte des lulu (autant de lulu gagnés que de dégats infligés).
-- À 22 lulu, tu peux te déplacer ou/et te soigner +14pv (se soigner coûte 12 lulu)
-- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât (l'attaque est esquivée)."""
+# Textes affichés
+regle = (
+    "Tu gagnes si tu bats le Dark Magician avec tes attaques ou si tu atteins la sortie | du labyrinthe.\n"
+    "- Tu perds si le Dark Magician arrive sur ta case ou si ses attaques te font perdre tous tes PV.\n"
+    "- Sur le plateau, B te représente et A représente le Dark Magician. Sa case bloque ton passage.\n"
+    "- Chaque carte inflige les dégâts indiqués ci-dessous.\n"
+    "- Pour jouer Foudre ou Terre, tu dépenses 2 lulu. Pour jouer Magie ou Temps, tu dépenses 4 lulu.\n"
+    "- Tes autres cartes sont gratuites.\n"
+    "- Si les deux cartes sont complémentaires, seule la plus faible subit la différence.\n"
+    "- Une attaque rapporte autant de lulu que de dégâts infligés.\n"
+    "- Un déplacement coûte 22 lulu. Un soin coûte 10 lulu et rend jusqu'à 14 PV.\n"
+    "- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât (l'attaque est esquivée)."
+)
 
-menu = """| Élément | Points de dégâts |
-|---------|------------------|
-| Feu     | 10               |
-| Eau     | 12               |
-| Glace   | 8                |
-| Lave    | 12               |
-| Foudre  | 14               |
-| Terre   | 16               |
-| Magie   | 20               |
-| Temps   | 18               |"""
+menu = """| Élément | Points de dégâts | Coût en lulu |
+|---------|------------------|--------------|
+| Feu     | 10               | 0            |
+| Eau     | 12               | 0            |
+| Glace   | 8                | 0            |
+| Lave    | 12               | 0            |
+| Foudre  | 14               | 2            |
+| Terre   | 16               | 2            |
+| Magie   | 20               | 4            |
+| Temps   | 18               | 4            |"""

@@ -44,8 +44,11 @@ def demander_action(joueur, ordi):
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
-        option_soin = "" if soin_utilise else "s pour se soigner   "
-        print(f"a pour attaquer   d pour se déplacer   {option_soin}q pour quitter")
+        if soin_utilise:
+            option_soin = ""
+        else:
+            option_soin = "s pour se soigner   "
+        print(f"a pour attaquer d pour se déplacer {option_soin}q pour quitter")
         choix = input("Ton choix : ").strip().lower()
 
         if choix in ("a", "q"):
@@ -122,7 +125,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
-        return destination is True
+        return destination == "B"
     # L'Ordi attaque
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
@@ -178,7 +181,7 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
-        return None, destination is True
+        return None, destination == "B"
 
     carte_ordi = ordi.choisir_carte()
     afficher_attaque_ordi(ordi, carte_ordi)
@@ -233,14 +236,14 @@ def main():
         carte_ordi = None
 
         if ordi_commence:
-            print("\nLe Dark Magician commence ce tour.")
+            print("\nTu joues en deuxième ce tour.")
             carte_ordi, joueur_ecrase = tour_ordi_en_premier(ordi, graphe, joueur)
             if joueur_ecrase:
                 afficher_plateau()
                 print("Le Dark Magician t'a écrasé. Tu perds...")
                 return
         else:
-            print("\nTu commences ce tour.")
+            print("\nTu joues en premier ce tour.")
 
         action, soin_utilise = demander_action(joueur, ordi)
         if action == "q":

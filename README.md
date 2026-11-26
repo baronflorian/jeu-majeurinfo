@@ -11,6 +11,8 @@ un seul prend les dégats de pv : la difference des dégats des deux attaques.
     
 On peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux.
 Il est donc impossible de réutiliser deux fois d'affilé la même carte.
-Le joueur utilise la même réserve de lulu pour se déplacer et pour se soigner. Il peut se soigner une fois par tour, avant ou après son attaque ou son déplacement.
+Le joueur dépense 2 lulu pour jouer Foudre ou **Terre** et 4 lulu** pour jouer Magie ou Temps. Les autres cartes du joueur sont gratuites.
+
+Le joueur utilise la même réserve de lulu pour jouer ces cartes, se déplacer et se soigner. Il peut se soigner une fois par tour, avant ou après son attaque ou son déplacement.
 Le joueur d'après lancera une attaque sans toucher l'adversaire, sauf si il se déplace.
 Toute attaque est comptabilisé si et seulement si le joueur précedent n'a pas bougé.

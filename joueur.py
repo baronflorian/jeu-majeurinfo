@@ -15,24 +15,25 @@ class Joueur(Player):
     def choisir_carte(self):
         print("\nTes cartes :")
         for i, carte in enumerate(self.cartes_en_main):
-            print(f"  {i + 1}. {carte} ({valeur.degat_elements[carte]} dégâts)") # afficher les cartes disponibles
+            cout = valeur.cout_cartes.get(carte, 0)
+            cout_affiche = f" | -{cout} lulu" if cout else ""
+            print(f"  {i + 1}. {carte} ({valeur.degat_elements[carte]} dégâts{cout_affiche})")
 
         while True:
             choix = input("Choisis une carte (1 à 4) : ")
-            
             if choix.isdigit() and 1 <= int(choix) <= 4: # verifier que la carte choisie est valide
                 indice = int(choix) - 1
                 carte = self.cartes_en_main[indice]
-                if carte=="Foudre" or carte=="Terre":
-                    if self.lulu>=2:
-                        self.lulu-=2
+                if carte == "Foudre" or carte == "Terre":
+                    if self.lulu >= 2:
+                        self.lulu -= 2
                         return self.jouer_carte(indice)
                     else:
                         print("tu n'a pas assez de lulu pour jouer cette carte")
                         continue
-                if carte=="Magie" or carte=="Temps":
-                    if self.lulu>=4:
-                        self.lulu-=4
+                if carte == "Magie" or carte == "Temps":
+                    if self.lulu >= 4:
+                        self.lulu -= 4
                         return self.jouer_carte(indice)
                     else:
                         print("tu n'a pas assez de lulu pour jouer cette carte")
