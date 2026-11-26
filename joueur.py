@@ -12,6 +12,17 @@ class Joueur(Player):
     def peut_bouger(self):
         return self.lulu >= valeur.LULU_POUR_BOUGER
 
+    def peut_attaquer(self):
+        for carte in self.cartes_en_main:
+            if self.lulu >= valeur.cout_cartes.get(carte, 0):
+                return True
+        return False
+
+    def remplacer_carte(self):
+        carte_remplacee = self.jouer_carte(0)
+        carte_piochee = self.cartes_en_main[-1]
+        print(f"Pour ton prochain tour, {carte_remplacee} est remplacée par {carte_piochee}.")
+
     def choisir_carte(self):
         print("\nTes cartes :")
         for i, carte in enumerate(self.cartes_en_main):
@@ -20,8 +31,8 @@ class Joueur(Player):
             print(f"  {i + 1}. {carte} ({valeur.degat_elements[carte]} dégâts{cout_affiche})")
 
         while True:
-            choix = input("Choisis une carte (1 à 4) : ")
-            if choix.isdigit() and 1 <= int(choix) <= 4: # verifier que la carte choisie est valide
+            choix = input("Choisis une carte (1 à 4) : ").strip()
+            if choix in ("1", "2", "3", "4"):
                 indice = int(choix) - 1
                 carte = self.cartes_en_main[indice]
                 if carte == "Foudre" or carte == "Terre":

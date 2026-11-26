@@ -39,11 +39,13 @@ def soigner(joueur):
     return True
 
 
-def demander_action(joueur, ordi):
-    soin_utilise = False
+def demander_action(joueur, ordi, soin_utilise=False):
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
+        if not joueur.peut_attaquer():
+            print("Aucune carte n'est jouable. Tu passes ton tour.")
+            return "p", soin_utilise
         option_soin = "" if soin_utilise else "s pour se soigner   "
         print(f"a pour attaquer   d pour se déplacer   {option_soin}q pour quitter")
         choix = input("Ton choix : ").strip().lower()
@@ -63,18 +65,20 @@ def demander_action(joueur, ordi):
             print("\nChoix invalide.\n")
 
 
-def demander_action2(joueur, ordi):
-    soin_utilise = False
+def demander_action2(joueur, ordi, soin_utilise=False):
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
+        if not joueur.peut_attaquer():
+            print("Aucune carte n'est jouable. Tu passes ton tour.")
+            return "p", soin_utilise
         if soin_utilise:
             option_soin = ""
         else:
             option_soin = "s pour se soigner   "
         print("Le Dark Magicien s'est déplacé, tu ne peux pas l'attaquer.")
         print(f"d pour se déplacer   {option_soin} q pour quitter   Entrée pour passer")
-        choix = input("Ton choix : ")
+        choix = input("Ton choix : ").strip().lower()
 
         if choix in ("", "q"):
             return choix, soin_utilise
@@ -108,7 +112,10 @@ def proposer_soin_apres_action(joueur, ordi):
 
 def demander_direction():
     while True:
-        direction = input("Direction (z haut, s bas, q gauche, d droite) : ")
+        direction = input("Direction (z haut, s bas, q gauche, d droite, Entrée pour annuler) : ").strip().lower()
+
+        if direction == "":
+            return None
 
         if direction not in valeur.DIRECTIONS:
             print("Direction invalide.")
@@ -122,7 +129,7 @@ def demander_direction():
         return resultat
 
 
-def tour_ordi(ordi, joueur, graphe, carte_joueur):
+def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     """L'Ordi se déplace s'il a assez de lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
     position_ordi = trouver_position(valeur.plateau, "A")
@@ -155,27 +162,13 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
 
-    if carte_joueur is None:
+    if carte_joueur is None and not joueur_passe:
         print("Tu t'es déplacé : son attaque ne te touche pas.")
         joueur.protege = False
         ordi.protege = False
         return False
 
-    degats_joueur, degats_ordi = attaque.resoudre(carte_joueur, carte_ordi)
-    if joueur.protege:
-        degats_joueur = 0
-    if ordi.protege:
-        degats_ordi = 0
-
-    joueur.vie -= degats_joueur
-    ordi.vie -= degats_ordi
-
-    joueur.lulu += degats_ordi
-    ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
-    joueur.protege = False
-    ordi.protege = False
-
-    print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
+    resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
     return False
 
 
@@ -215,8 +208,12 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
 
 def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
-    """Résout l'attaque du joueur après une attaque de l'Ordi en premier."""
-    degats_joueur, degats_ordi = attaque.resoudre(carte_joueur, carte_ordi)
+    """Résout les dégâts quand l'Ordi attaque et que le joueur attaque ou passe."""
+    if carte_joueur is None:
+        degats_joueur = valeur.degat_elements[carte_ordi]
+        degats_ordi = 0
+    else:
+        degats_joueur, degats_ordi = attaque.resoudre(carte_joueur, carte_ordi)
 
     if joueur.protege:
         degats_joueur = 0
@@ -264,17 +261,25 @@ def main():
         else:
             print("\nTu joues en premier ce tour.")
 
-        if ordi_commence and carte_ordi is None:
-            action, soin_utilise = demander_action2(joueur, ordi)
-        else:
-            action, soin_utilise = demander_action(joueur, ordi)
+        soin_utilise = False
+        while True:
+            if ordi_commence and carte_ordi is None:
+                action, soin_utilise = demander_action2(joueur, ordi, soin_utilise)
+            else:
+                action, soin_utilise = demander_action(joueur, ordi, soin_utilise)
+
+            if action != "d":
+                break
+            destination = demander_direction()
+            if destination is not None:
+                break
+
         if action == "q":
             print("À bientôt !")
             return
 
         carte_joueur = None
         if action == "d":
-            destination = demander_direction()
             joueur.lulu -= valeur.LULU_POUR_BOUGER
             if destination == "|":
                 afficher_plateau()
@@ -288,9 +293,9 @@ def main():
             carte_joueur = joueur.choisir_carte()
 
         if ordi_commence:
-            if carte_ordi is not None and carte_joueur is not None:
+            if carte_ordi is not None and action != "d":
                 resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
-        elif tour_ordi(ordi, joueur, graphe, carte_joueur):
+        elif tour_ordi(ordi, joueur, graphe, carte_joueur, action == "p"):
             afficher_plateau()
             print("Le Dark Magician t'a écrasé. Tu perds...")
             return
@@ -309,6 +314,8 @@ def main():
 
         if not soin_utilise:
             proposer_soin_apres_action(joueur, ordi)
+        if action == "p":
+            joueur.remplacer_carte()
         ordi_commence = not ordi_commence
 
 

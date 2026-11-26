@@ -102,6 +102,7 @@ regle = (
     "- Chaque carte inflige les dégâts indiqués ci-dessous.\n"
     "- Pour jouer Foudre ou Terre, tu dépenses 2 lulu. Pour jouer Magie ou Temps, tu dépenses 4 lulu.\n"
     "- Tes autres cartes sont gratuites.\n"
+    "- Si aucune carte en main n'est jouable, tu passes ton tour et une carte gratuite entre dans ta main à la fin du tour.\n"
     "- Si les deux cartes sont complémentaires, seule la plus faible subit la différence.\n"
     "- Une attaque rapporte autant de lulu que de dégâts infligés.\n"
     "- Un déplacement coûte 22 lulu. Un soin coûte 10 lulu et rend jusqu'à 14 PV.\n"
