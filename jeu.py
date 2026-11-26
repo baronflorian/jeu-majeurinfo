@@ -240,11 +240,10 @@ def main():
     valeur.changer_plateau(choix_plateaux[choix])
     joueur = Joueur(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     ordi = Ordi(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
-    difficultes = {"1": 0.85, "2": 1, "3": 1.15}
     choix_difficulte = input("Difficulté (1 = facile, 2 = moyen, 3 = difficile) : ")
-    while choix_difficulte not in difficultes:
+    while choix_difficulte not in valeur.difficultes:
         choix_difficulte = input("Tape 1, 2 ou 3 : ")
-    ordi.multiplicateur_lulu = difficultes[choix_difficulte]
+    ordi.multiplicateur_lulu = valeur.difficultes[choix_difficulte]
     graphe = construire_graphe(valeur.plateau)
     ordi_commence = True
 
