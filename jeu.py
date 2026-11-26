@@ -24,6 +24,7 @@ def afficher_etat(joueur, ordi):
 
 
 def soigner(joueur):
+    """Dépense du Lulu pour soigner le joueur et renvoie True si le soin réussit."""
     if joueur.vie >= valeur.VIE_DEPART:
         print(f"Tu es déjà à {valeur.VIE_DEPART} PV.")
         return False
@@ -33,6 +34,7 @@ def soigner(joueur):
 
     joueur.lulu -= valeur.LULU_POUR_SOIGNER
     vie_avant = joueur.vie
+    # Le soin est plafonné aux PV de départ.
     joueur.vie = min(valeur.VIE_DEPART, joueur.vie + valeur.PV_SOIGNES)
     pv_recuperes = joueur.vie - vie_avant
     print(f"Tu récupères {pv_recuperes} PV et utilises {valeur.LULU_POUR_SOIGNER} lulu.")
@@ -40,6 +42,10 @@ def soigner(joueur):
 
 
 def demander_action(joueur, ordi, soin_utilise=False):
+    """Renvoie l'action du joueur et indique si son soin du tour a été utilisé.
+
+    Le soin s'applique directement dans le menu, qui reste ouvert ensuite.
+    """
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
@@ -66,6 +72,8 @@ def demander_action(joueur, ordi, soin_utilise=False):
 
 
 def demander_action2(joueur, ordi, soin_utilise=False):
+    """Renvoie l'action choisie face au Dark Magician protégé et l'état du soin du tour."""
+    # Un déplacement du Dark Magician en début de tour retire l'option d'attaque du menu.
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
@@ -76,7 +84,7 @@ def demander_action2(joueur, ordi, soin_utilise=False):
             option_soin = ""
         else:
             option_soin = "s pour se soigner   "
-        print("Le Dark Magicien s'est déplacé, tu ne peux pas l'attaquer.")
+        print("Le Dark Magician s'est déplacé, tu ne peux pas l'attaquer.")
         print(f"d pour se déplacer   {option_soin} q pour quitter   Entrée pour passer")
         choix = input("Ton choix : ").strip().lower()
 
@@ -96,6 +104,7 @@ def demander_action2(joueur, ordi, soin_utilise=False):
             print("\nChoix invalide.\n")
 
 def proposer_soin_apres_action(joueur, ordi):
+    """Propose un soin de fin de tour si le joueur a des PV à récupérer et assez de Lulu."""
     if joueur.vie >= valeur.VIE_DEPART or joueur.lulu < valeur.LULU_POUR_SOIGNER:
         return
 
@@ -111,6 +120,10 @@ def proposer_soin_apres_action(joueur, ordi):
 
 
 def demander_direction():
+    """Déplace le joueur et renvoie l'ancien contenu de la case d'arrivée.
+
+    Le résultat vaut None si le joueur annule et "|" s'il atteint la sortie.
+    """
     while True:
         direction = input("Direction (z haut, s bas, q gauche, d droite, Entrée pour annuler) : ").strip().lower()
 
@@ -130,17 +143,20 @@ def demander_direction():
 
 
 def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
-    """L'Ordi se déplace s'il a assez de lulu, sinon il attaque.
+    """Le Dark Magician se déplace s'il a assez de lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
     position_ordi = trouver_position(valeur.plateau, "M")
     position_joueur = trouver_position(valeur.plateau, "J")
 
     suivante = None
+    # Le Dark Magician paie son soin avant de vérifier s'il lui reste assez de Lulu pour bouger.
+    if ordi.vie < 10 and ordi.peut_se_soigner():
+        ordi.soin_ordi()
     if ordi.peut_bouger():
         suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
     if suivante is not None:
-        # Si le joueur a attaqué, son attaque touche l'Ordi avant qu'il ne bouge.
+        # Si le joueur a attaqué, son attaque touche le Dark Magician avant qu'il ne bouge.
         if carte_joueur is not None:
             degats = valeur.degat_elements[carte_joueur]
             if ordi.protege:
@@ -158,7 +174,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
         print("\nLe Dark Magician se déplace.")
         joueur.protege = False
         return destination == "J"
-    # L'Ordi attaque
+    # Le Dark Magician attaque
     carte_ordi = ordi.choisir_carte(carte_joueur)
     print(f"\nLe Dark Magician lance {carte_ordi}.")
 
@@ -182,14 +198,16 @@ def afficher_attaque_ordi(ordi, carte_ordi):
 
 
 def tour_ordi_en_premier(ordi, graphe, joueur):
-    """Déplace ou fait attaquer l'Ordi avant l'action du joueur.
+    """Déplace ou fait attaquer le Dark Magician avant l'action du joueur.
 
-    Renvoie (carte jouée, joueur écrasé). La carte vaut None si l'Ordi s'est déplacé.
+    Renvoie (carte jouée, joueur écrasé). La carte vaut None si le Dark Magician s'est déplacé.
     """
     position_ordi = trouver_position(valeur.plateau, "M")
     position_joueur = trouver_position(valeur.plateau, "J")
 
     suivante = None
+    if ordi.vie < 10 and ordi.peut_se_soigner():
+        ordi.soin_ordi()
     if ordi.peut_bouger():
         suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
@@ -208,7 +226,7 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
 
 def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
-    """Résout les dégâts quand l'Ordi attaque et que le joueur attaque ou passe."""
+    """Résout les dégâts quand le Dark Magician attaque et que le joueur attaque ou passe."""
     if carte_joueur is None:
         degats_joueur = valeur.degat_elements[carte_ordi]
         degats_ordi = 0
@@ -222,6 +240,7 @@ def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
 
     joueur.vie -= degats_joueur
     ordi.vie -= degats_ordi
+    # Le Lulu gagné dépend des dégâts infligés. La difficulté module le gain du Dark Magician.
     joueur.lulu += degats_ordi
     ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
 
@@ -232,6 +251,7 @@ def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
 
 
 def main():
+    """Prépare la partie et gère les tours jusqu'à la fin du jeu."""
     menu_de_debut()
     choix_plateaux = {"1": "petit", "2": "moyen", "3": "grand"}
     choix = input("Choisis un plateau, 1 pour petit, 2 pour moyen, 3 pour grand. \n")
@@ -244,6 +264,7 @@ def main():
     while choix_difficulte not in valeur.difficultes:
         choix_difficulte = input("Tape 1, 2 ou 3 : ")
     ordi.multiplicateur_lulu = valeur.difficultes[choix_difficulte]
+    # Le Dark Magician utilise le graphe pour trouver son chemin vers le joueur.
     graphe = construire_graphe(valeur.plateau)
     ordi_commence = True
 
@@ -269,6 +290,7 @@ def main():
 
             if action != "d":
                 break
+            # Annuler le déplacement ramène au menu en conservant l'état du soin.
             destination = demander_direction()
             if destination is not None:
                 break
@@ -291,6 +313,7 @@ def main():
         elif action == "a":
             carte_joueur = joueur.choisir_carte()
 
+        # Si le Dark Magician a annoncé une attaque, le déplacement du joueur permet de l'esquiver.
         if ordi_commence:
             if carte_ordi is not None and action != "d":
                 resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
@@ -311,8 +334,10 @@ def main():
             print("Le Dark Magician n'a plus de PV. Tu gagnes !")
             return
 
+        # Le joueur peut encore se soigner s'il n'a pas utilisé son soin dans le menu.
         if not soin_utilise:
             proposer_soin_apres_action(joueur, ordi)
+        # Un passage forcé renouvelle une carte de la main pour le prochain tour.
         if action == "p":
             joueur.remplacer_carte()
         ordi_commence = not ordi_commence

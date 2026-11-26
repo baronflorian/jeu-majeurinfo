@@ -2,7 +2,7 @@ import valeur
 
 
 def resoudre(carte_joueur, carte_ordi):
-    """Renvoie (dégâts subis par le joueur, dégâts subis par l'ordi)."""
+    """Renvoie (dégâts subis par le joueur, dégâts subis par le Dark Magician)."""
     degat_joueur = valeur.degat_elements[carte_joueur]
     degat_ordi = valeur.degat_elements[carte_ordi]
 

@@ -14,7 +14,7 @@ pour les elements complementaires, les dégats se compensent
 
 plus une attaque est puissante plus elle prend du temps a recharger
 
-il se bat contre les mechants (ia)  : dark magician
+il se bat contre le Dark Magician (IA)
 
 but : tuer l'ennemi
 
@@ -25,12 +25,29 @@ magie temps
 vent ?
 
 ce qui est marque ds jeu.py et cest a clarifier:
-"Régles du jeux : Le but est de tuer le dark magician; chaque éléments donne des dégats. \n " \
-    "Si on lance avec le dark magician une action complémentaire un seul prends les dégats de points : la differences de deux, \n" \
+"Régles du jeux : Le but est de tuer le Dark Magician; chaque éléments donne des dégats. \n " \
+    "Si on lance avec le Dark Magician une action complémentaire un seul prends les dégats de points : la differences de deux, \n" \
     " si pendant deux attaques de suite l'utilisateur ne recoit pas de degats, \n" \
     " c'est a dire qu'il a pu obtenir deux attaques complémentaire d'affilé \n" \
-    "et que ses deux attauses complémentaire étaient de points de dégats plus élevés que le dark magician \n" \
+    "et que ses deux attauses complémentaire étaient de points de dégats plus élevés que le Dark Magician \n" \
     "alors on gagne 6 points de vie un plus /n" \
     "on peut slectionner à chaque tour un carte parmis quatre cartes parmis les 8 du jeux "
     "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)"
     
+    Le joueur J gagne s'il atteint la sortie | ou s'il bat le Dark Magician M avec ses attaques. 
+On ne peut pas passer par dessus le Dark Magician.
+
+Le joueur perd si le Dark Magician arrive sur sa case ou si ses attaques lui font perdre tous ses PV.
+
+Si le Dark Magician lance une action complémentaire à notre attaque,
+un seul prend les dégats de pv : la difference des dégats des deux attaques + 2.
+    
+On peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux.
+Il est donc impossible de réutiliser deux fois d'affilé la même carte.
+Le joueur dépense 2 lulus pour jouer Foudre ou Terre et 4 lulus pour jouer Magie ou Temps. Les autres cartes du joueur sont gratuites.
+
+Si aucune carte en main n'est jouable, le joueur passe son tour et reçoit une carte gratuite en remplacement à la fin du tour.
+
+Le joueur utilise la même réserve de lulus pour jouer ses cartes, se déplacer et se soigner. Il peut se soigner une fois par tour, avant ou après son attaque ou son déplacement.
+Le joueur d'après lancera une attaque sans toucher l'adversaire, sauf si il se déplace.
+Toute attaque est comptabilisée si et seulement si le joueur précedent n'a pas bougé.

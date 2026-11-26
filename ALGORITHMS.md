@@ -1,16 +1,16 @@
-# Heuristique de choix des actions du Dark Magicien:
-*Le Dark Magicien suit une stratégie basée sur des règles de priorité afin de choisir l'action qui lui semble la plus avantageuse.*
+# Heuristique de choix des actions du Dark Magician:
+*Le Dark Magician suit une stratégie basée sur des règles de priorité afin de choisir l'action qui lui semble la plus avantageuse.*
 
-Le Dark Magicien cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
+Le Dark Magician cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
 
-Si le déplacement n'est pas possible, le Dark Magicien cherche à infliger le maximum de dégâts au joueur.
+Si le déplacement n'est pas possible, le Dark Magician cherche à infliger le maximum de dégâts au joueur.
 
 Pour cela, son choix dépend de l'ordre de jeu :
 - S'il joue en deuxième : il vérifie d'abord s'il possède dans sa main la carte complémentaire à celle jouée par le joueur. Si c'est le cas, il vérifie également que cette carte possède une puissance supérieure à celle de son adversaire. Dans ce cas il joue cette carte afin de bénéficier du bonus lié aux cartes complémentaires et de ne subir aucun dégât.
 
 - si il joue en premier ou qu'il ne possède pas de carte complementaire plus puissante : il choisit simplement la carte ayant la puissance d'attaque la plus élevée parmi celles disponibles dans sa main.
 
-Ces heuristiques ont été choisies pour privilégier les actions les plus avantageuses. Le **déplacement est prioritaire** car il peut permettre au Dark Magicien de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
+Ces heuristiques ont été choisies pour privilégier les actions les plus avantageuses. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
 
 
 
@@ -27,7 +27,7 @@ Ces heuristiques ont été choisies pour privilégier les actions les plus avant
 
 ## Le graphe du labyrinthe
 
-Le plateau est une grille, mais pour que l'IA puisse le parcourir, on le transforme en **graphe** avec `construire_graphe` :
+Le plateau est une grille, mais pour que le Dark Magician puisse le parcourir, on le transforme en **graphe** avec `construire_graphe` :
 chaque case libre du plateau devient un **sommet** repéré par ses coordonnées (x,y)
 
 On obtient un dictionnaire de la forme :
@@ -90,7 +90,7 @@ https://fr.wikipedia.org/wiki/Algorithme_A*
 
 ## Heuristique gloutonne pour les cartes
 
-Pour le choix de la carte, l'IA ne simule pas toute la partie : elle applique deux règles :
+Pour choisir sa carte, le Dark Magician applique deux règles :
 
 1. jouer la **complémentaire** si elle est en main et **strictement plus forte** 
 2. sinon, jouer la carte qui inflige le **maximum de dégâts**

@@ -55,6 +55,20 @@ class Ordi(Player):
     def peut_bouger(self):
         return self.lulu >= valeur.LULU_POUR_BOUGER
 
+    def soin_ordi(self):
+        if not self.peut_se_soigner():
+            return False
+
+        vie_avant = self.vie
+        self.lulu -= valeur.LULU_POUR_SOIGNER
+        self.vie = min(valeur.VIE_DEPART, self.vie + valeur.PV_SOIGNES)
+        pv_recuperes = self.vie - vie_avant
+        print(f"Le Dark Magician récupère {pv_recuperes} PV.")
+        return True
+
+    def peut_se_soigner(self):
+        return self.lulu >= valeur.LULU_POUR_SOIGNER and self.vie < valeur.VIE_DEPART
+
     def choisir_carte(self, carte_joueur=None):
         """Heuristique : jouer la complémentaire si elle est plus forte,
         sinon jouer la carte qui fait le plus de dégâts."""

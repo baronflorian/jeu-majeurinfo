@@ -1,12 +1,12 @@
 ## Description du jeu:
 
-Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magicien, contrôlé par une intelligence artificielle.
+Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magician, contrôlé par une intelligence artificielle.
 
 La partie se déroule sur une carte représentant un labyrinthe. Le joueur a deux possibilités pour gagner : 
 - atteindre la sortie du labyrinthe 
-- vaincre le Dark Magicien grâce à ses attaques. 
+- vaincre le Dark Magician grâce à ses attaques. 
 
-De son côté, le Dark Magicien doit éliminer le joueur pour remporter la partie.
+De son côté, le Dark Magician doit éliminer le joueur pour remporter la partie.
 
 ## Prise en main du jeu
 ### Plateau
@@ -39,10 +39,10 @@ M = Dark Magician
 - soin : 10 lulus -> 14 PV (les PV sont plaffonés à 80)
 - déplacement : 22 lulus
 - pour le joueur : gain de lulus = dégats infligés
-- pour l'ia : gain de lulus = dégats infligés x coefficient de difficulté
+- pour le Dark Magician : gain de lulus = dégats infligés x coefficient de difficulté
 - 4 cartes en main, pioche de 8
 
-3 difficultés qui multiplient les lulus gagnés par l'ia par un coefficient ( 1.05 / 1.25 / 1.35)
+3 difficultés qui multiplient les lulus gagnés par le Dark Magician par un coefficient ( 1.05 / 1.25 / 1.35)
 3 choix de plateau de taille differente : petit 5×5, moyen 9×9, grand 11×11, (choisis au lancement)
 
 
@@ -52,17 +52,17 @@ M = Dark Magician
 ### Dans le labyrinthe :
 
 Le joueur est représenté par la lettre J.
-Le Dark Magicien est représenté par la lettre M.
+Le Dark Magician est représenté par la lettre M.
 La sortie est représentée par le symbole |.
 
-Le joueur gagne s'il atteint la sortie du labyrinthe ou s'il parvient à vaincre le Dark Magicien grâce à ses attaques.
+Le joueur gagne s'il atteint la sortie du labyrinthe ou s'il parvient à vaincre le Dark Magician grâce à ses attaques.
 
-Le joueur perd si le Dark Magicien arrive sur sa case ou si ses attaques lui font perdre tous ses points de vie.
+Le joueur perd si le Dark Magician arrive sur sa case ou si ses attaques lui font perdre tous ses points de vie.
 
-Il est impossible de traverser la case occupée par le Dark Magicien.
+Il est impossible de traverser la case occupée par le Dark Magician.
 
 ### Cartes : 
-Le joueur et le Dark Magicien disposent de différentes cartes, plus ou moins puissantes, pour attaquer leur adversaire.
+Le joueur et le Dark Magician disposent de différentes cartes, plus ou moins puissantes, pour attaquer leur adversaire.
 
 À chaque tour, chacun peut choisir une carte parmi les 4 cartes disponibles dans sa main, sur les 8 cartes que compte le jeu.
 
@@ -70,10 +70,10 @@ Lorsqu'une carte est utilisée, elle est immédiatement remplacée par une nouve
 
 Certaines cartes sont complémentaires. Lorsque les deux personnages jouent des cartes complémentaires au cours d'un même tour, un effet spécial se déclenche : celui qui a joué la carte la plus puissante inflige à son adversaire des dégâts correspondant à la différence de puissance entre les deux cartes, auxquels s'ajoutent 2 points bonus et il ne subit aucun dégât pendant ce tour.
 
-Les tours du joueur et du Dark Magicien alternent afin que chacun puisse, lorsque cela est possible, bénéficier de l'utilisation d'une carte complémentaire.
+Les tours du joueur et du Dark Magician alternent afin que chacun puisse, lorsque cela est possible, bénéficier de l'utilisation d'une carte complémentaire.
 
 ### Lulus
-À chaque tour, le joueur et le Dark Magicien gagnent des points proportionnellement à la puissance de leur attaque. Ces points sont appelés des lulus.
+À chaque tour, le joueur et le Dark Magician gagnent des points proportionnellement à la puissance de leur attaque. Ces points sont appelés des lulus.
 
 #### acheter des cartes
 Les lulus constituent une ressource essentielle pour progresser dans le jeu, car les cartes les plus puissantes nécessitent d'en dépenser pour être utilisées.
@@ -95,11 +95,11 @@ Il peut se soigner avant ou après l'action.
 
 #### se déplacer
 Enfin, pour bouger dans le labyrinthe, il faut dépenser 22 lulus.
-Lorsqu'un personnage (le joueur ou le Dark Magicien) se déplace, il bénéficie d'une **protection** pendant le tour suivant :
+Lorsqu'un personnage (le joueur ou le Dark Magician) se déplace, il bénéficie d'une **protection** pendant le tour suivant :
 après un déplacement, la prochaine attaque adverse est alors annulée (0 dégât subi). Si le joueur se déplace, l'attaque du Dark Magician ne le touche donc pas. Si le Dark Magician se déplace en premier, le joueur ne peut pas l'attaquer ce tour-là.
 
 ### Fin de partie
-**victoire** si sortie ou dark magician tué
-**défaite** si plus de PV ou si dark magician sur la case
+**victoire** si sortie ou Dark Magician tué
+**défaite** si plus de PV ou si Dark Magician sur la case
 
 match nul???

@@ -2,7 +2,7 @@ from collections import deque
 
 
 class Player:
-    """Classe générique d'un joueur (qui sera héritée par l'humain et l'ordinateur)."""
+    """Classe de base du joueur humain et du Dark Magician."""
 
     def __init__(self, actions, vie):
         self.vie = vie
