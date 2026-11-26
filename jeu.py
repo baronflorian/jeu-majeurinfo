@@ -44,7 +44,10 @@ def demander_action(joueur, ordi):
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
-        option_soin = "" if soin_utilise else "s pour se soigner   "
+        if soin_utilise:
+            option_soin = ""
+        else:
+            option_soin = "s pour soigner"
         print(f"a pour attaquer   d pour se déplacer   {option_soin}q pour quitter")
         choix = input("Ton choix : ").strip().lower()
 
@@ -62,6 +65,34 @@ def demander_action(joueur, ordi):
         else:
             print("\nChoix invalide.\n")
 
+
+def demander_action2(joueur, ordi):
+    soin_utilise = False
+    while True:
+        afficher_plateau()
+        afficher_etat(joueur, ordi)
+        if soin_utilise:
+            option_soin = ""
+        else:
+            option_soin = "s pour soigner"
+        print(f"Le Dark Magicien s'est déplacé tu ne peux pas l'attaquer")
+        print(f"d pour se déplacer   {option_soin}q pour quitter")
+        choix = input("Ton choix : ").strip().lower()
+        
+        if choix in ("q"):
+            return choix, soin_utilise
+        if choix == "s":
+            if soin_utilise:
+                print("Tu as déjà utilisé ton soin ce tour.")
+            else:
+                soin_utilise = soigner(joueur)
+
+        elif choix == "d":
+            if joueur.peut_bouger():
+                return choix, soin_utilise
+            print(f"\nIl te faut {valeur.LULU_POUR_BOUGER} lulu pour te déplacer.\n")
+        else:
+            print("\nChoix invalide.\n")
 
 def proposer_soin_apres_action(joueur, ordi):
     if joueur.vie >= valeur.VIE_DEPART or joueur.lulu < valeur.LULU_POUR_SOIGNER:
@@ -144,6 +175,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur):
 
     joueur.lulu += degats_ordi
     ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
+    joueur.protege = False
     ordi.protege = False
 
     print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
@@ -200,16 +232,9 @@ def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
     ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
 
     print(f"Tu infliges {degats_ordi} dégâts et tu subis {degats_joueur} dégâts.")
+    joueur.protege = False
     ordi.protege = False
 
-
-def resoudre_attaque_joueur_seule(ordi, joueur, carte_joueur):
-    """Applique l'attaque du joueur si l'Ordi s'est déplacé au début du tour."""
-    degats = valeur.degat_elements[carte_joueur]
-    ordi.vie -= degats
-    joueur.lulu += degats
-    ordi.protege = False
-    print(f"\nTon attaque inflige {degats} dégâts au Dark Magician.")
 
 
 def main():
@@ -238,14 +263,26 @@ def main():
             if joueur_ecrase:
                 afficher_plateau()
                 print("Le Dark Magician t'a écrasé. Tu perds...")
+
                 return
+            if carte_ordi is None:
+                action, soin_utilise = demander_action2(joueur, ordi)
+                if action == "q":
+                    print("À bientôt !")
+                    return
+            else:
+                action, soin_utilise = demander_action(joueur, ordi)
+                if action == "q":
+                    print("À bientôt !")
+                    return
+
+            
         else:
             print("\nTu commences ce tour.")
-
-        action, soin_utilise = demander_action(joueur, ordi)
-        if action == "q":
-            print("À bientôt !")
-            return
+            action, soin_utilise = demander_action(joueur, ordi)
+            if action == "q":
+                print("À bientôt !")
+                return
 
         carte_joueur = None
         if action == "d":
@@ -259,15 +296,12 @@ def main():
             joueur.protege = True
             if ordi_commence:
                 ordi.protege = False
-        else:
+        elif action == "a":
             carte_joueur = joueur.choisir_carte()
 
         if ordi_commence:
-            if carte_ordi is not None:
-                if carte_joueur is not None:
-                    resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
-            elif carte_joueur is not None:
-                resoudre_attaque_joueur_seule(ordi, joueur, carte_joueur)
+            if carte_ordi is not None and carte_joueur is not None:
+                resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
         elif tour_ordi(ordi, joueur, graphe, carte_joueur):
             afficher_plateau()
             print("Le Dark Magician t'a écrasé. Tu perds...")
