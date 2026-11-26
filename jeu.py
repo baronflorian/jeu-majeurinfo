@@ -1,9 +1,48 @@
 import attaque
 import valeur
+import parcours
 from joueur import Joueur, Ordi
-from parcours import bouger, construire_graphe, deplacer_vers, trouver_position
 
 
+def tour_ordi_ia_ameliorer(ordi, joueur, graphe):
+    """Choisit la prochaine case de l'Ordi selon les priorités du niveau difficile.
+
+    Renvoie None quand l'Ordi doit attaquer ou ne peut pas se déplacer.
+    """
+    position_sortie = parcours.trouver_position(valeur.plateau, "|")
+    position_joueur = parcours.trouver_position(valeur.plateau, "J")
+    position_ordi = parcours.trouver_position(valeur.plateau, "M")
+    if position_sortie is None or position_joueur is None or position_ordi is None:
+        return None
+
+    if len(valeur.plateau) == 5:
+        plateau = 1
+    elif len(valeur.plateau) == 9:
+        plateau = 2
+    else:
+        plateau = 3
+
+    if ordi.vie < 10 and ordi.peut_se_soigner():
+        ordi.soin_ordi()
+
+    if not ordi.peut_bouger():
+        return None
+
+    if parcours.distance_manhattan(position_joueur, position_sortie) <= valeur.distance_limite[plateau]:       #si le joueur est trop pres de la sortie l'ia va venir defendre la sortie
+        cases_a_defendre =parcours.trouver_case_avant_sortie(valeur.plateau, "|")                              #mais limite entre distance joueur et ordi pour que l'ia ne reste pas a bloquer la sortie tout le temps
+        if parcours.distance_manhattan(position_joueur, position_ordi)<=2:
+            return ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
+
+        cases_a_defendre=cases_a_defendre[0]
+        if cases_a_defendre==position_ordi:
+            return None
+
+        return ordi.choisir_deplacement(graphe, position_ordi, cases_a_defendre)
+
+    if parcours.distance_manhattan(position_joueur, position_ordi) >=valeur.distance_poursuite_limite[plateau]:    #si le joueur est trop loin l'ordi ne cherche pas a le poursuivre le joueur devra forcement se rapprocher de la sortie donc de l'ia
+        return None                                                                                                #elle peut donc economiser ses lulu et attaquer
+
+    return ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 def menu_de_debut():
     print("Bienvenue dans le jeu de combat !")
     print("Vous allez affronter le Dark Magician.\n")
@@ -134,7 +173,7 @@ def demander_direction():
             print("Direction invalide.")
             continue    # continue le while sans faire la suite
 
-        resultat = bouger(valeur.plateau, "J", direction)
+        resultat = parcours.bouger(valeur.plateau, "J", direction)
         if resultat is None:
             print("Passage bloqué par un mur ou par le Dark Magician.")
             continue
@@ -145,15 +184,18 @@ def demander_direction():
 def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     """Le Dark Magician se déplace s'il a assez de lulu, sinon il attaque.
     Renvoie True s'il écrase le joueur."""
-    position_ordi = trouver_position(valeur.plateau, "M")
-    position_joueur = trouver_position(valeur.plateau, "J")
+    position_ordi = parcours.trouver_position(valeur.plateau, "M")
+    position_joueur = parcours.trouver_position(valeur.plateau, "J")
 
     suivante = None
     # Le Dark Magician paie son soin avant de vérifier s'il lui reste assez de Lulu pour bouger.
-    if ordi.vie < 10 and ordi.peut_se_soigner():
-        ordi.soin_ordi()
-    if ordi.peut_bouger():
-        suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
+    if ordi.niveau_difficulte == 3:
+        suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
+    else:
+        if ordi.vie < 10 and ordi.peut_se_soigner():
+            ordi.soin_ordi()
+        if ordi.peut_bouger():
+            suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
     if suivante is not None:
         # Si le joueur a attaqué, son attaque touche le Dark Magician avant qu'il ne bouge.
@@ -168,7 +210,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
                 return False
 
         ordi.protege = False
-        destination = deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
+        destination = parcours.deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
         ordi.lulu -= valeur.LULU_POUR_BOUGER
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
@@ -202,18 +244,22 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
     Renvoie (carte jouée, joueur écrasé). La carte vaut None si le Dark Magician s'est déplacé.
     """
-    position_ordi = trouver_position(valeur.plateau, "M")
-    position_joueur = trouver_position(valeur.plateau, "J")
+    position_ordi = parcours.trouver_position(valeur.plateau, "M")
+    position_joueur = parcours.trouver_position(valeur.plateau, "J")
 
     suivante = None
-    if ordi.vie < 10 and ordi.peut_se_soigner():
-        ordi.soin_ordi()
-    if ordi.peut_bouger():
-        suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
+
+    if ordi.niveau_difficulte == 3:
+        suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
+    else:
+        if ordi.vie < 10 and ordi.peut_se_soigner():
+            ordi.soin_ordi()
+        if ordi.peut_bouger():
+            suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
     if suivante is not None:
         ordi.protege = False
-        destination = deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
+        destination = parcours.deplacer_vers(valeur.plateau, "M", suivante[0], suivante[1])
         ordi.lulu -= valeur.LULU_POUR_BOUGER
         ordi.protege = True
         print("\nLe Dark Magician se déplace.")
@@ -261,17 +307,18 @@ def main():
     joueur = Joueur(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     ordi = Ordi(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     choix_difficulte = input("Difficulté (1 = facile, 2 = moyen, 3 = difficile) : ")
-    while choix_difficulte not in valeur.difficultes:
+    while choix_difficulte not in ("1", "2", "3"):
         choix_difficulte = input("Tape 1, 2 ou 3 : ")
-    ordi.multiplicateur_lulu = valeur.difficultes[choix_difficulte]
+    ordi.niveau_difficulte = int(choix_difficulte)
+    ordi.multiplicateur_lulu = valeur.difficultes[ordi.niveau_difficulte]
     # Le Dark Magician utilise le graphe pour trouver son chemin vers le joueur.
-    graphe = construire_graphe(valeur.plateau)
+    graphe = parcours.construire_graphe(valeur.plateau)
     ordi_commence = True
 
-    while True:
+    while True:        #gere un tour de jeu
         carte_ordi = None
 
-        if ordi_commence:
+        if ordi_commence:   #gere un tour de jeux dans le cas ou le Dark magicien commence recupere l'action de l'ordi
             print("\nTu joues en deuxième ce tour.")
             carte_ordi, joueur_ecrase = tour_ordi_en_premier(ordi, graphe, joueur)
             if joueur_ecrase:
@@ -283,7 +330,7 @@ def main():
 
         soin_utilise = False
         while True:
-            if ordi_commence and carte_ordi is None:
+            if ordi_commence and carte_ordi is None:   #choisie la fonction adapté en fonction de l'action du dark magicien
                 action, soin_utilise = demander_action2(joueur, ordi, soin_utilise)
             else:
                 action, soin_utilise = demander_action(joueur, ordi, soin_utilise)

@@ -120,3 +120,9 @@ menu = """| Élément | Points de dégâts | Coût en lulu |
 | Terre   | 16               | 2            |
 | Magie   | 20               | 4            |
 | Temps   | 18               | 4            |"""
+
+
+difficultes = {1: 0.85, 2: 1, 3: 1.15}
+
+distance_limite = {1: -float("inf"), 2: 4, 3: 6}    #le petit labyrinthe est trop petit pour aplliquer l'heuristique
+distance_poursuite_limite={1: float("inf"),2:8,3:11}

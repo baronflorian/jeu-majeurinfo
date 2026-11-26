@@ -4,7 +4,7 @@ Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magicia
 
 La partie se déroule sur une carte représentant un labyrinthe. Le joueur a deux possibilités pour gagner : 
 - atteindre la sortie du labyrinthe 
-- vaincre le Dark Magician grâce à ses attaques. 
+- vaincre le Dark Magician grâce à ses attaques.
 
 De son côté, le Dark Magician doit éliminer le joueur pour remporter la partie.
 
