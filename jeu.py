@@ -22,7 +22,7 @@ def tour_ordi_ia_ameliorer(ordi, joueur, graphe):
     else:
         plateau = 3
 
-    if ordi.vie < 10 and ordi.peut_se_soigner():
+    if ordi.vie < 20 and ordi.peut_se_soigner():
         ordi.soin_ordi()
 
     if not ordi.peut_bouger():
@@ -111,9 +111,9 @@ def demander_action(joueur, ordi, soin_utilise=False):
 
 
 def demander_action2(joueur, ordi, soin_utilise=False):
-    """Renvoie l'action choisie face au Dark Magician protégé et l'état du soin du tour."""
-    # Le déplacement du Dark Magician en début de tour retire l'option d'attaque du menu. 
-    while True:
+    
+    #si le magicien a joué en premier et qu'il a choisit de se deplacer on utilise cette fonction 
+    # pour permettre au joueur de se deplacer ou de se soigner mais pas d'attaquer car le dark est protgé
         afficher_plateau()
         afficher_etat(joueur, ordi)
         if not joueur.peut_attaquer():
@@ -188,6 +188,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     position_joueur = parcours.trouver_position(valeur.plateau, "J")
 
     suivante = None
+   
     if ordi.niveau_difficulte == 3:
         suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
     else:
@@ -197,7 +198,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
             suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
     if suivante is not None:
-        # Si le joueur a attaqué, son attaque touche le Dark Magician avant qu'il ne bouge.
+        # Si le joueur a attaqué, son attaque touche le Dark Magician même si il choisit de se deplacer,il sera protégé au tour d'après.
         if carte_joueur is not None:
             degats = valeur.degat_elements[carte_joueur]
             if ordi.protege:
@@ -271,7 +272,7 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
 
 def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
-    """Résout les dégâts quand le Dark Magician attaque et que le joueur attaque ou passe."""
+    """renvoie les dégâts quand le Dark Magician attaque et que le joueur attaque ou passe."""
     if carte_joueur is None:
         degats_joueur = valeur.degat_elements[carte_ordi]
         degats_ordi = 0
