@@ -35,14 +35,14 @@ M = Dark Magician
 - Magie/Temps
 
 ### Valeurs par défaut
-- au départ : 80 PV, 0 lulu
-- soin : 10 lulus -> 14 PV (les PV sont plaffonés à 80)
+- au départ : 80 PV et 0 lulu pour chacun. En difficulté 3, le Dark Magician commence avec 95 PV.
+- soin : 10 lulus pour récupérer jusqu’à 14 PV, dans la limite des PV de départ
 - déplacement : 22 lulus
 - pour le joueur : gain de lulus = dégats infligés
 - pour le Dark Magician : gain de lulus = dégats infligés x coefficient de difficulté
 - 4 cartes en main, pioche de 8
 
-3 difficultés qui multiplient les lulus gagnés par le Dark Magician par un coefficient ( 1.05 / 1.25 / 1.35)
+3 difficultés qui multiplient les lulus gagnés par le Dark Magician par un coefficient ( 1.05 / 1.25 / 1.35) et le choix de priorité des actions du dark magicien sont aussi modifié afin d'optimiser ses actions et de rendre la victoire du joueur plus difficile. 
 3 choix de plateau de taille differente : petit 5×5, moyen 9×9, grand 11×11, (choisis au lancement)
 
 
@@ -89,14 +89,14 @@ Les autres cartes sont gratuites.
 Si aucune carte de sa main n'est jouable (car pas assez de lulus), le joueur passe son tour et reçoit une nouvelle carte en remplacement à la fin de celui-ci.
 
 #### Se soigner
-Un soin coûte 10 lulus et rend jusqu’à 14 PV, sans dépasser 80 PV.
+Un soin coûte 10 lulus et rend jusqu’à 14 PV, sans dépasser les PV de départ du personnage.
 Le joueur peut se soigner une fois par tour, avant ou après son action.
-Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de 10 PV et qu’il a au moins 10 lulus.
+Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de 10 PV (20 PV pour le niveau 3) et qu’il a au moins 10 lulus.
 
 
-#### se déplacer
+#### Se déplacer
 Enfin, pour bouger dans le labyrinthe, il faut dépenser 22 lulus.
-Lorsqu'un personnage (le joueur ou le Dark Magician) se déplace, il bénéficie d'une **protection** pendant le tour suivant :
+Lorsqu'un personnage (le joueur ou le Dark Magician) se déplace, il bénéficie d'une **protection**, il ne pourra pas être touché à l'attaque suivant :
 après un déplacement, la prochaine attaque adverse est alors annulée (0 dégât subi). Si le joueur se déplace, l'attaque du Dark Magician ne le touche donc pas. Si le Dark Magician se déplace en premier, le joueur ne peut pas l'attaquer ce tour-là.
 
 ### Fin de partie

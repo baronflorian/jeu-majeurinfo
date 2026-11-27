@@ -30,7 +30,7 @@ def tour_ordi_ia_ameliorer(ordi, joueur, graphe):
 
     if parcours.distance_manhattan(position_joueur, position_sortie) <= valeur.distance_limite[plateau]:       #si le joueur est trop pres de la sortie l'ia va venir defendre la sortie
         cases_a_defendre =parcours.trouver_case_avant_sortie(valeur.plateau, "|")                              #mais limite entre distance joueur et ordi pour que l'ia ne reste pas a bloquer la sortie tout le temps
-        if parcours.distance_manhattan(position_joueur, position_ordi)<=2:
+        if parcours.distance_manhattan(position_joueur, position_ordi)<=3:
             return ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
 
         cases_a_defendre=cases_a_defendre[0]
@@ -304,11 +304,13 @@ def main():
         choix = input("Choix invalide. Tape 1, 2 ou 3.\n")
     valeur.changer_plateau(choix_plateaux[choix])
     joueur = Joueur(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
-    ordi = Ordi(valeur.menu_actions_disponible(), valeur.VIE_DEPART, valeur.LULU_DEPART)
     choix_difficulte = input("Difficulté (1 = facile, 2 = moyen, 3 = difficile) : ")
     while choix_difficulte not in ("1", "2", "3"):
         choix_difficulte = input("Tape 1, 2 ou 3 : ")
-    ordi.niveau_difficulte = int(choix_difficulte)
+    niveau_difficulte = int(choix_difficulte)
+    vie_ordi = valeur.VIE_DEPART_ORDI_DIFFICILE if niveau_difficulte == 3 else valeur.VIE_DEPART
+    ordi = Ordi(valeur.menu_actions_disponible(), vie_ordi, valeur.LULU_DEPART)
+    ordi.niveau_difficulte = niveau_difficulte
     ordi.multiplicateur_lulu = valeur.difficultes[ordi.niveau_difficulte]
     # Le Dark Magician utilise le graphe pour trouver son chemin vers le joueur.
     graphe = parcours.construire_graphe(valeur.plateau)

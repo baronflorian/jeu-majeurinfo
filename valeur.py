@@ -2,6 +2,7 @@ from collections import deque
 
 # --- Réglages du jeu ---
 VIE_DEPART = 80
+VIE_DEPART_ORDI_DIFFICILE = 95
 LULU_DEPART = 0
 LULU_POUR_BOUGER = 22
 LULU_POUR_SOIGNER = 10
