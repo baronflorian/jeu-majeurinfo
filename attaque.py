@@ -7,7 +7,8 @@ def resoudre(carte_joueur, carte_ordi):
     degat_ordi = valeur.degat_elements[carte_ordi]
 
 
-    # Les deux cartes sont complémentaires : seule la plus faible prend la différence et 2 point de degat en plus ou elles s'annulent 
+    # Les deux cartes sont complémentaires : seule la plus faible subit la difference de degat entre les 2 
+    # et 2 point de degat en bonus la plus forte ne subit aucun degat
     if valeur.carte_complementaire[carte_joueur] == carte_ordi:
         if degat_joueur > degat_ordi:
             return 0, (degat_joueur - degat_ordi) +2

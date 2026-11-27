@@ -89,7 +89,7 @@ class Ordi(Player):
         return self.jouer_carte(numero_max)
 
     def choisir_deplacement(self, graphe, position_ordi, position_cible):
-        """Renvoie le premier pas du chemin le plus court vers une ou plusieurs cibles.(dans le cas des labyrinthe créé la cible est toujours unique)"""
+        """Renvoie le premier pas du chemin le plus court vers une ou plusieurs cibles.(dans le cas des labyrinthe que nous utilisons la cible est toujours unique)"""
         cibles = [position_cible] if isinstance(position_cible, tuple) else position_cible
         if position_ordi in cibles:
             return None
