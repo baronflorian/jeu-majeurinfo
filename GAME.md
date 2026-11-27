@@ -97,8 +97,10 @@ Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de
 
 #### Se déplacer
 Enfin, pour bouger dans le labyrinthe, il faut dépenser 22 lulus.
-Lorsqu'un personnage (le joueur ou le Dark Magician) se déplace, il bénéficie d'une **protection**, il ne pourra pas être touché à l'attaque suivant :
-après un déplacement, la prochaine attaque adverse est alors annulée (0 dégât subi). Si le joueur se déplace, l'attaque du Dark Magician ne le touche donc pas. Si le Dark Magician se déplace en premier, le joueur ne peut pas l'attaquer ce tour-là.
+
+Lorsque le joueur se déplace, il bénéficie d'une **protection** : la prochaine attaque du Dark Magician est annulée (0 dégât subi).
+
+Le Dark Magician, en revanche, n'est **pas protégé** par son déplacement : si le joueur attaque, son attaque touche le Dark Magician, que le déplacement ait lieu avant ou après. Comme il ne joue pas de carte en se déplaçant, l'attaque lui inflige directement les dégâts de la carte du joueur. S'il se déplace en premier, il n'attaque pas ce tour-là.
 
 ### Fin de partie
 

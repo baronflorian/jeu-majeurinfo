@@ -240,10 +240,17 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
 
 
 def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
-    """renvoie les dégâts quand le Dark Magician attaque et que le joueur attaque ou passe."""
+    """Applique les dégâts de l'échange.
+
+    `carte_ordi` vaut None quand le Dark Magician s'est déplacé : l'attaque du joueur le touche alors directement.
+    """
     if carte_joueur is None:
         degats_joueur = valeur.degat_elements[carte_ordi]
         degats_ordi = 0
+    elif carte_ordi is None:
+        # Le Dark Magician s'est déplacé sans jouer de carte : l'attaque du joueur le touche directement.
+        degats_joueur = 0
+        degats_ordi = valeur.degat_elements[carte_joueur]
     else:
         degats_joueur, degats_ordi = attaque.resoudre(carte_joueur, carte_ordi)
 
@@ -325,9 +332,10 @@ def main():
         elif action == "a":
             carte_joueur = joueur.choisir_carte()
 
-        # Si le Dark Magician a annoncé une attaque, le déplacement du joueur permet de l'esquiver.
+        # Si le Dark Magician a attaqué, le déplacement du joueur permet de l'esquiver.
+        # S'il s'est déplacé, l'attaque du joueur le touche directement.
         if ordi_commence:
-            if carte_ordi is not None and action != "d":
+            if action != "d" and (carte_ordi is not None or carte_joueur is not None):
                 resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
         elif tour_ordi(ordi, joueur, graphe, carte_joueur, action == "p"):
             afficher_plateau()

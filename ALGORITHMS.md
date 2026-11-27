@@ -3,9 +3,11 @@
 
 Le Dark Magician se soigne en priorité s'il lui reste moins de 20 PV(40 au niveau 3) et dispose d'assez de Lulu.
 
-Le Dark Magician cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
+Aux niveaux 1 et 2, le Dark Magician cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
 
-Si le déplacement n'est pas possible, le Dark Magician cherche à infliger le maximum de dégâts au joueur.
+Au niveau 3, il ne se déplace plus forcément en priorité : selon la position du joueur, il peut préférer rester sur place et attaquer.
+
+Si le déplacement n'est pas possible, ou si le niveau 3 estime qu'il n'est pas utile, le Dark Magician cherche à infliger le maximum de dégâts au joueur.
 
 Pour cela, son choix dépend de l'ordre de jeu :
 - S'il joue en deuxième : il vérifie d'abord s'il possède dans sa main la carte complémentaire à celle jouée par le joueur. Si c'est le cas, il vérifie également que cette carte possède une puissance supérieure à celle de son adversaire. Dans ce cas il joue cette carte afin de bénéficier du bonus lié aux cartes complémentaires et de ne subir aucun dégât.
@@ -127,7 +129,7 @@ Le déroulement est alors le suivant :
 S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
 
 
-Nous avons choisi ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
+Nous avons choisi ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Aux niveaux 1 et 2, le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Au niveau 3, il peut aussi rester sur place pour défendre la sortie ou économiser ses lulus. Lorsqu'il ne se déplace pas, il cherche à **maximiser ses dégâts**.
 
 Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
 
