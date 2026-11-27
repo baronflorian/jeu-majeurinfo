@@ -45,11 +45,13 @@ plateaux = {
     ],
 }
 
-# Pour changer de plateau, remplace "petit" par "labyrinthe" ou "piliers".
+# Pour changer de plateau, remplace "petit" par "moyen" ou "grand".
 def changer_plateau(nom):
     global plateau
     plateau = [list(ligne) for ligne in plateaux[nom]]
-# z = haut, s = bas, q = gauche, d = droite (comme dans minecraft :) )
+
+
+# z = haut, s = bas, q = gauche, d = droite 
 DIRECTIONS = {
     "z": (0, -1),
     "s": (0, 1),
@@ -104,8 +106,9 @@ regle = (
     "- Chaque carte inflige les dégâts indiqués ci-dessous.\n"
     "- Pour jouer Foudre ou Terre, tu dépenses 2 lulu. Pour jouer Magie ou Temps, tu dépenses 4 lulu.\n"
     "- Tes autres cartes sont gratuites.\n"
-    "- Si aucune carte en main n'est jouable, tu passes ton tour et une carte gratuite entre dans ta main à la fin du tour.\n"
-    "- Si deux cartes complémentaires ont des puissances différentes, celui qui a joué la plus faible subit la différence de dégâts plus 2. Si elles sont de même puissance, les attaques s'annulent.\n"
+    "- Si aucune carte en main n'est jouable, tu passes ton tour et une nouvelle carte entre dans ta main à la fin du tour.\n"
+    "- Si deux cartes complémentaires ont des puissances différentes, celui qui a joué la plus faible subit la différence de dégâts plus 2.\n"
+    "- Si elles sont de même puissance, les attaques s'annulent.\n"
     "- Une attaque rapporte autant de lulu que de dégâts infligés.\n"
     "- Un déplacement coûte 22 lulu. Un soin coûte 10 lulu et rend jusqu'à 14 PV.\n"
     "- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât (l'attaque est esquivée)."
