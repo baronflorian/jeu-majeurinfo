@@ -14,20 +14,6 @@ Pour cela, son choix dépend de l'ordre de jeu :
 
 Au niveau 3, sur les plateaux moyen et grand, le Dark Magician tient compte de la distance qui le sépare du joueur et de la distance entre le joueur et la sortie du labyrinthe.
 
-Son objectif de déplacement peut ainsi évoluer selon trois situations :
-
-Si le joueur est loin du Dark Magician et de la sortie, le Dark Magician reste sur place et attaque. Il conserve ainsi ses lulus pour un futur déplacement ou un soin.
-
-Si le joueur se rapproche de la sortie, le Dark Magician vise une case adjacente à celle-ci pour la défendre.
-
-Si le joueur est près de la sortie et à trois cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
-
-S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
-
-Nous avons choisis ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
-
-Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
-
 
 ## Les structures de données utilisées
 
@@ -111,5 +97,23 @@ Pour choisir sa carte, le Dark Magician applique deux règles :
 2. sinon, jouer la carte qui inflige le **maximum de dégâts**
 
 C'est une heuristique **gloutonne** : elle choisit l'action qui semble la meilleure **immédiatement**, sans prévoir les coups suivants.
+
+## IA améliorée au niveau 3
+
+*Au niveau 3, sur les plateaux moyen et grand, le Dark Magician tient compte de la distance qui le sépare du joueur et de la distance entre le joueur et la sortie du labyrinthe.*
+
+Son objectif de déplacement peut ainsi évoluer selon trois situations :
+
+- Si le joueur est loin du Dark Magician et de la sortie, le Dark Magician reste sur place et attaque. Il conserve ainsi ses lulus pour un futur déplacement ou un soin.
+
+- Si le joueur se rapproche de la sortie, le Dark Magician vise une case adjacente à celle-ci pour la défendre.
+
+- Si le joueur est près de la sortie et à trois cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
+
+S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
+
+Nous avons choisis ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
+
+Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
 
 
