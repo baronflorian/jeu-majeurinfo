@@ -81,7 +81,7 @@ cout_cartes = {
     "Temps": 4,
 }
 
-difficultes = {1: 1.05, 2: 1.25, 3: 1.35}
+difficultes = {1: 0.85, 2: 1, 3: 1.15}
 
 # Chaque carte a une seule complémentaire
 carte_complementaire = {
