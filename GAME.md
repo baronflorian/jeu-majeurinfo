@@ -35,15 +35,16 @@ M = Dark Magician
 - Magie/Temps
 
 ### Valeurs par défaut
-- au départ : 80 PV et 0 lulu pour chacun. En difficulté 3, le Dark Magician commence avec 95 PV.
+- au départ : 150 PV et 0 lulu pour chacun. En difficulté 3, le Dark Magician commence avec 180 PV.
 - soin : 10 lulus pour récupérer jusqu’à 14 PV, dans la limite des PV de départ
 - déplacement : 22 lulus
-- pour le joueur : gain de lulus = dégats infligés
-- pour le Dark Magician : gain de lulus = dégats infligés x coefficient de difficulté
+- pour le joueur : gain de lulus = dégâts infligés
+- pour le Dark Magician : gain de lulus = dégâts infligés × coefficient de difficulté
 - 4 cartes en main, pioche de 8
 
-3 difficultés qui multiplient les lulus gagnés par le Dark Magician par un coefficient ( 1.05 / 1.25 / 1.35) et le choix de priorité des actions du dark magicien sont aussi modifié afin d'optimiser ses actions et de rendre la victoire du joueur plus difficile. 
-3 choix de plateau de taille differente : petit 5×5, moyen 9×9, grand 11×11, (choisis au lancement)
+Trois difficultés multiplient les lulus gagnés par le Dark Magician (coefficients **0.85 / 1 / 1.15**). Au niveau 3, son choix d'action est aussi amélioré pour mieux défendre la sortie et poursuivre le joueur.
+
+Trois plateaux de tailles différentes sont disponibles : petit 5×5, moyen 9×9, grand 11×11 (choisis au lancement).
 
 
 ## Règles du jeu:

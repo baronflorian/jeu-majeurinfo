@@ -102,18 +102,34 @@ C'est une heuristique **gloutonne** : elle choisit l'action qui semble la meille
 
 *Au niveau 3, sur les plateaux moyen et grand, le Dark Magician tient compte de la distance qui le sépare du joueur et de la distance entre le joueur et la sortie du labyrinthe.*
 
-Son objectif de déplacement peut ainsi évoluer selon trois situations :
+Deux distances servent à décider :
 
-- Si le joueur est loin du Dark Magician et de la sortie, le Dark Magician reste sur place et attaque. Il conserve ainsi ses lulus pour un futur déplacement ou un soin.
+- la distance entre le **joueur et la sortie** : si elle est petite, le Dark Magician va défendre la sortie
+- la distance entre le **joueur et le Dark Magician** : si elle est grande, cela ne sert à rien de poursuivre.
 
-- Si le joueur se rapproche de la sortie, le Dark Magician vise une case adjacente à celle-ci pour la défendre.
+Les seuils dépendent du plateau :
 
-- Si le joueur est près de la sortie et à trois cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
+| Plateau | Distance joueur/sortie pour défendre | Distance joueur/Dark Magician pour arrêter la poursuite |
+|---|---|---|
+| petit | heuristique désactivée | heuristique désactivée |
+| moyen | 4 cases ou moins | 8 cases ou plus |
+| grand | 6 cases ou moins | 11 cases ou plus |
+
+Le déroulement est alors le suivant :
+
+1. Il se soigne d'abord s'il a moins de 40 PV et au moins 10 lulus.
+2. Si le joueur est assez proche de la sortie, le Dark Magician défend la sortie :
+   - si le joueur est à 3 cases ou moins de lui, il le poursuit directement 
+   - sinon, il rejoint la case juste avant la sortie. S'il occupe déjà cette case, il reste sur place et attaque
+3. Sinon, si le joueur est trop loin de lui, il ne le poursuit pas : il reste sur place et attaque pour économiser ses lulus.
+4. Sinon, il poursuit le joueur.
 
 S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
 
-Nous avons choisis ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
+
+Nous avons choisi ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
 
 Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
+
 
 
