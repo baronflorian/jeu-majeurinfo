@@ -91,7 +91,7 @@ Si aucune carte de sa main n'est jouable (car pas assez de lulus), le joueur pas
 #### Se soigner
 Un soin coûte 10 lulus et rend jusqu’à 14 PV, sans dépasser les PV de départ du personnage.
 Le joueur peut se soigner une fois par tour, avant ou après son action.
-Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de 20 PV (40 PV pour le niveau 3) et qu’il a au moins 10 lulus.
+Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de 20 PV (40 PV pour le niveau 3) et qu’il a au moins 10 lulus. 
 
 
 #### Se déplacer

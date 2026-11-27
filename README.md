@@ -1,6 +1,6 @@
 # The Dark Magician
 The Dark Magician est un jeu qui se joue sur l'interface terminal de l'ordinateur.
-C'est un jeu de cartes et de plateau où le but est de vaincre le Dark Magician ou de lui échapper (en sortant du labyrinthe).
+C'est un jeu de cartes et de plateau où le but est de vaincre le Dark Magician ou de lui échapper en sortant du labyrinthe.
 
 ## Installation
 
