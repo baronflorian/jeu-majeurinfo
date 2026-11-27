@@ -3,6 +3,9 @@ The Dark Magician est un jeu qui se joue sur l'interface terminal de l'ordinateu
 C'est un jeu de cartes et de plateau où le but est de vaincre le Dark Magician ou de lui échapper (en sortant du labyrinthe).
 
 ## Installation
+
+Il faut avoir Git et Python 3.10 ou une version plus récente. Le jeu utilise uniquement la bibliothèque standard de Python.
+
 ```bash
 git clone https://github.com/baronflorian/jeu-majeurinfo.git
 cd jeu-majeurinfo

@@ -1,6 +1,6 @@
 ## Description du jeu:
 
-Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magician, contrôlé par une intelligence artificielle.
+Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magician contrôlé par une intelligence artificielle.
 
 La partie se déroule sur une carte représentant un labyrinthe. Le joueur a deux possibilités pour gagner : 
 - atteindre la sortie du labyrinthe 

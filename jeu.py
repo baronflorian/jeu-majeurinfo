@@ -73,7 +73,7 @@ def soigner(joueur):
 
     joueur.lulu -= valeur.LULU_POUR_SOIGNER
     vie_avant = joueur.vie
-    # Le soin est plafonné aux PV de départ.
+    # Le soin ne peut pas depasser le nombre de PV initial.
     joueur.vie = min(valeur.VIE_DEPART, joueur.vie + valeur.PV_SOIGNES)
     pv_recuperes = joueur.vie - vie_avant
     print(f"Tu récupères {pv_recuperes} PV et utilises {valeur.LULU_POUR_SOIGNER} lulu.")
@@ -112,7 +112,7 @@ def demander_action(joueur, ordi, soin_utilise=False):
 
 def demander_action2(joueur, ordi, soin_utilise=False):
     """Renvoie l'action choisie face au Dark Magician protégé et l'état du soin du tour."""
-    # Un déplacement du Dark Magician en début de tour retire l'option d'attaque du menu.
+    # Le déplacement du Dark Magician en début de tour retire l'option d'attaque du menu. 
     while True:
         afficher_plateau()
         afficher_etat(joueur, ordi)
@@ -171,7 +171,7 @@ def demander_direction():
 
         if direction not in valeur.DIRECTIONS:
             print("Direction invalide.")
-            continue    # continue le while sans faire la suite
+            continue    # pour eviter les erreurs
 
         resultat = parcours.bouger(valeur.plateau, "J", direction)
         if resultat is None:
@@ -188,7 +188,6 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     position_joueur = parcours.trouver_position(valeur.plateau, "J")
 
     suivante = None
-    # Le Dark Magician paie son soin avant de vérifier s'il lui reste assez de Lulu pour bouger.
     if ordi.niveau_difficulte == 3:
         suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
     else:
@@ -286,7 +285,7 @@ def resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi):
 
     joueur.vie -= degats_joueur
     ordi.vie -= degats_ordi
-    # Le Lulu gagné dépend des dégâts infligés. La difficulté module le gain du Dark Magician.
+    # Le Lulu gagné dépend des dégâts donées. La difficulté joue sur le gain du Dark Magician.
     joueur.lulu += degats_ordi
     ordi.lulu += degats_joueur * ordi.multiplicateur_lulu
 

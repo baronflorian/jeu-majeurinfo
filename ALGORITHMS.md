@@ -24,7 +24,7 @@ Si le joueur est près de la sortie et à deux cases ou moins du Dark Magician s
 
 S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
 
-Ces heuristiques ont été choisies pour privilégier les actions les plus avantageuses. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
+Nous avons choisis ces heuristiques pour que le Dark Magician utilise l'action la plus adaptée à la situation. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
 
 Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
 
