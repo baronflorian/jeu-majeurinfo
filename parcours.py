@@ -20,7 +20,7 @@ def position_valide(plateau, x, y):    # on verifie que la position rechercher a
 
 
 def voisins(plateau, x, y):
-    #Renvoie les cases marchables autour de (x, y).
+    #Renvoie les cases qui sont accessibles depuis notre position.
     cases = []
     for dx, dy in valeur.DIRECTIONS.values():
         nx, ny = x + dx, y + dy
@@ -31,7 +31,7 @@ def voisins(plateau, x, y):
 
 def construire_graphe(plateau):
     """Transforme le plateau en graphe : chaque clé correspond a une case et ses valeurs sont la liste des cases voisines ou on peut aller.
-    le graphe sert notament a trouver le plus court chemin entre 2 destination dans A_star"""
+    Le graphe sert notament a trouver le plus court chemin entre 2 destination dans A_star"""
     graphe = {}
     for y, ligne in enumerate(plateau):
         for x, case in enumerate(ligne):

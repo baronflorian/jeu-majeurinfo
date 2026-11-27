@@ -18,7 +18,7 @@ class Joueur(Player):
                 return True
         return False
 
-    def remplacer_carte(self):                #si le joueur n'a pas asssez de lulu pour jouer chacune de ses carte une de ses cartes est remplacer par une carte gratuite 
+    def remplacer_carte(self):                #si le joueur n'a pas asssez de lulu pour jouer chacune de ses carte une de ses cartes est remplacée par une carte gratuite 
         carte_remplacee = self.jouer_carte(0)
         carte_piochee = self.cartes_en_main[-1]
         print(f"Pour ton prochain tour, {carte_remplacee} est remplacée par {carte_piochee}.")
@@ -33,8 +33,8 @@ class Joueur(Player):
         while True:
             choix = input("Choisis une carte (1 à 4) : ").strip()
             if choix in ("1", "2", "3", "4"):
-                indice = int(choix) - 1                              #on veriie que la carte choisis par le joueur est valide et qu'il possede assez de lulu pour jouer cette carte 
-                carte = self.cartes_en_main[indice]                  #si le choix et valider on return la carte choisis
+                indice = int(choix) - 1                              #on verifie que la carte choisis par le joueur est valide et qu'il possède assez de lulu pour jouer cette carte 
+                carte = self.cartes_en_main[indice]                  #si le choix est validé on retourne la carte choisis
                 if carte in valeur.cout_cartes:
                     if self.lulu >= valeur.cout_cartes[carte]:
                         self.lulu -= valeur.cout_cartes[carte]
@@ -57,7 +57,7 @@ class Ordi(Player):
     def peut_bouger(self):
         return self.lulu >= valeur.LULU_POUR_BOUGER
 
-    def soin_ordi(self):                    #on verifie que l'ordi peut se soigner puis on lui applique le soin en verifiant que la vie qu'il recupere ne lui fera pas depasser la valeur max de vie
+    def soin_ordi(self):                    #on verifie que l'ordi peut se soigner puis on lui applique le soin en verifiant que la vie qu'il recupere ne lui fera pas depasser la valeur de vie maximale.
         if not self.peut_se_soigner():
             return False                 
 
