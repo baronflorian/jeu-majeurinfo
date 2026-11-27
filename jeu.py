@@ -335,7 +335,9 @@ def main():
         # Si le Dark Magician a attaqué, le déplacement du joueur permet de l'esquiver.
         # S'il s'est déplacé, l'attaque du joueur le touche directement.
         if ordi_commence:
-            if action != "d" and (carte_ordi is not None or carte_joueur is not None):
+            if action == "d" and carte_ordi is not None:
+                joueur.protege = False
+            elif carte_ordi is not None or carte_joueur is not None:
                 resoudre_attaque_joueur(ordi, joueur, carte_joueur, carte_ordi)
         elif tour_ordi(ordi, joueur, graphe, carte_joueur, action == "p"):
             afficher_plateau()
