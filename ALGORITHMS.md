@@ -1,6 +1,8 @@
 # Heuristique de choix des actions du Dark Magician:
 *Le Dark Magician suit une stratégie basée sur des règles de priorité afin de choisir l'action qui lui semble la plus avantageuse.*
 
+Le Dark Magician se soigne en priorité s'il lui reste moins de 10 PV et dispose d'assez de Lulu.
+
 Le Dark Magician cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
 
 Si le déplacement n'est pas possible, le Dark Magician cherche à infliger le maximum de dégâts au joueur.
@@ -10,15 +12,28 @@ Pour cela, son choix dépend de l'ordre de jeu :
 
 - si il joue en premier ou qu'il ne possède pas de carte complementaire plus puissante : il choisit simplement la carte ayant la puissance d'attaque la plus élevée parmi celles disponibles dans sa main.
 
+Au niveau 3, sur les plateaux moyen et grand, le Dark Magician tient compte de la distance qui le sépare du joueur et de la distance entre le joueur et la sortie du labyrinthe.
+
+Son objectif de déplacement peut ainsi évoluer selon trois situations :
+
+Si le joueur est loin du Dark Magician et de la sortie, le Dark Magician reste sur place et attaque. Il conserve ainsi ses lulus pour un futur déplacement ou un soin.
+
+Si le joueur se rapproche de la sortie, le Dark Magician vise une case adjacente à celle-ci pour la défendre.
+
+Si le joueur est près de la sortie et à deux cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
+
+S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
+
 Ces heuristiques ont été choisies pour privilégier les actions les plus avantageuses. Le **déplacement est prioritaire** car il peut permettre au Dark Magician de remporter directement la partie. Lorsqu'il ne peut pas se déplacer, il cherche à **maximiser ses dégâts**.
 
+Sur le petit plateau, le Dark Magician continue de viser le joueur lorsqu’il peut se déplacer.
 
 
 ## Les structures de données utilisées
 
 | Structure | Utilisation dans le code |
 |---|---|
-| Liste de listes (`list[list[str]]`) | les plateaux : chaque case est un caractère (`#`, `J`, `M`, `/`, espace) |
+| Liste de listes (`list[list[str]]`) | les plateaux : chaque case est un caractère (`#`, `J`, `M`, `\|`, espace) |
 | Dictionnaire (`dict`) | le graphe : une case libre → la liste des cases libres voisines |
 | File (`deque`) | la pioche de cartes : on pioche au début et on remet la carte jouée à la fin |
 | Liste (`list`) | la main du joueur : 4 cartes visibles |
@@ -82,7 +97,7 @@ tant que la file n'est pas vide :
 ```
 
 
-`choisir_deplacement` récupère ce chemin et renvoie **la première case après le départ** : le Dark Magician avance ainsi d'une case par tour vers le joueur.
+`choisir_deplacement` renvoie **la première case après le départ** sur le chemin le plus court vers le joueur. La même méthode permet au Dark Magician de rejoindre une case à défendre près de la sortie.
 
 ### Sources
 https://www.datacamp.com/tutorial/a-star-algorithm

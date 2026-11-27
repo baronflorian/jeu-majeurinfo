@@ -4,7 +4,7 @@ Le jeu est un affrontement entre deux personnages : le joueur et le Dark Magicia
 
 La partie se déroule sur une carte représentant un labyrinthe. Le joueur a deux possibilités pour gagner : 
 - atteindre la sortie du labyrinthe 
-- vaincre le Dark Magician grâce à ses attaques. 
+- vaincre le Dark Magician grâce à ses attaques.
 
 De son côté, le Dark Magician doit éliminer le joueur pour remporter la partie.
 
@@ -68,12 +68,12 @@ Le joueur et le Dark Magician disposent de différentes cartes, plus ou moins pu
 
 Lorsqu'une carte est utilisée, elle est immédiatement remplacée par une nouvelle carte. Il est donc impossible d'utiliser deux fois de suite la même carte.
 
-Certaines cartes sont complémentaires. Lorsque les deux personnages jouent des cartes complémentaires au cours d'un même tour, un effet spécial se déclenche : celui qui a joué la carte la plus puissante inflige à son adversaire des dégâts correspondant à la différence de puissance entre les deux cartes, auxquels s'ajoutent 2 points bonus et il ne subit aucun dégât pendant ce tour.
+Lorsque les deux personnages jouent des cartes complémentaires de puissances différentes, celui qui a joué la plus puissante inflige la différence de puissance plus 2 dégâts et ne subit aucun dégât. Si les deux cartes ont la même puissance, les attaques s’annulent.
 
 Les tours du joueur et du Dark Magician alternent afin que chacun puisse, lorsque cela est possible, bénéficier de l'utilisation d'une carte complémentaire.
 
 ### Lulus
-À chaque tour, le joueur et le Dark Magician gagnent des points proportionnellement à la puissance de leur attaque. Ces points sont appelés des lulus.
+Les attaques rapportent des lulus en fonction des dégâts infligés. Le coefficient de difficulté s’applique au gain du Dark Magician.
 
 #### acheter des cartes
 Les lulus constituent une ressource essentielle pour progresser dans le jeu, car les cartes les plus puissantes nécessitent d'en dépenser pour être utilisées.
@@ -88,9 +88,10 @@ Les autres cartes sont gratuites.
 
 Si aucune carte de sa main n'est jouable (car pas assez de lulus), le joueur passe son tour et reçoit une nouvelle carte en remplacement à la fin de celui-ci.
 
-#### se soigner
-Les lulus servent également à se soigner (10 lulus pour 14PV). Seul le joueur possède cette capacité.
-Il peut se soigner avant ou après l'action.
+#### Se soigner
+Un soin coûte 10 lulus et rend jusqu’à 14 PV, sans dépasser 80 PV.
+Le joueur peut se soigner une fois par tour, avant ou après son action.
+Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de 10 PV et qu’il a au moins 10 lulus.
 
 
 #### se déplacer
@@ -99,7 +100,7 @@ Lorsqu'un personnage (le joueur ou le Dark Magician) se déplace, il bénéficie
 après un déplacement, la prochaine attaque adverse est alors annulée (0 dégât subi). Si le joueur se déplace, l'attaque du Dark Magician ne le touche donc pas. Si le Dark Magician se déplace en premier, le joueur ne peut pas l'attaquer ce tour-là.
 
 ### Fin de partie
-**victoire** si sortie ou Dark Magician tué
-**défaite** si plus de PV ou si Dark Magician sur la case
 
-match nul???
+- **Victoire** si le joueur atteint la sortie ou si le Dark Magician tombe à 0 PV ou moins et que le joueur survit.
+- **Défaite** si le Dark Magician arrive sur la case du joueur ou si le joueur tombe à 0 PV ou moins et que le Dark Magician survit.
+- **Match nul** si les deux personnages tombent à 0 PV ou moins au même tour.

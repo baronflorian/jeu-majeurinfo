@@ -100,3 +100,11 @@ def bouger(plateau, lettre, direction):
     x, y = trouver_position(plateau, lettre)
     dx, dy = valeur.DIRECTIONS[direction]
     return deplacer_vers(plateau, lettre, x + dx, y + dy)
+
+def trouver_case_avant_sortie(plateau,lettre):
+        for y, ligne in enumerate(plateau):
+            for x, case in enumerate(ligne):
+                if case == lettre:
+                    voisin=voisins(plateau,x,y)
+                    return voisin
+        return None

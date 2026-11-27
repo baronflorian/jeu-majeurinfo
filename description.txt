@@ -4,50 +4,10 @@ lucie.fontanini@gmail.com
 baronflorian73@gmail.com
 julie.bruel@mailo.fr
 
-carte
-elements
+Le joueur incarne un sorcier (J) qui affronte le Dark Magician (M) dans un labyrinthe. Il gagne s'il atteint la sortie (|) ou bat le Dark Magician. Il perd si le Dark Magician arrive sur sa case ou s'il tombe à 0 PV ou moins et que le Dark Magician survit. Si les deux personnages tombent à 0 PV ou moins au même tour, la partie se termine sur un match nul.
 
+Les huit cartes forment quatre paires complémentaires : Feu et Eau, Glace et Lave, Foudre et Terre, Magie et Temps. Si deux cartes complémentaires sont jouées au même tour, celui qui a joué la plus faible subit la différence de dégâts plus 2. Les attaques s'annulent si les cartes ont la même puissance.
 
-on incarne un sorcier qui se bat avec les elements : eau, feu, air => diffentes attaques possibles qui nécessitent
-plus ou moins de temps pour recharger (info stockées dans des classes)
-pour les elements complementaires, les dégats se compensent
+Chaque personnage a quatre cartes en main. Une carte jouée est remplacée immédiatement. Pour le joueur, Foudre et Terre coûtent 2 lulus chacune, Magie et Temps 4 lulus chacune. Les autres cartes sont gratuites. Si aucune carte en main n'est jouable, le joueur passe son tour et reçoit une carte gratuite en remplacement à la fin du tour.
 
-plus une attaque est puissante plus elle prend du temps a recharger
-
-il se bat contre le Dark Magician (IA)
-
-but : tuer l'ennemi
-
-elements : feu, eau
-glace, lave
-foudre terre
-magie temps
-vent ?
-
-ce qui est marque ds jeu.py et cest a clarifier:
-"Régles du jeux : Le but est de tuer le Dark Magician; chaque éléments donne des dégats. \n " \
-    "Si on lance avec le Dark Magician une action complémentaire un seul prends les dégats de points : la differences de deux, \n" \
-    " si pendant deux attaques de suite l'utilisateur ne recoit pas de degats, \n" \
-    " c'est a dire qu'il a pu obtenir deux attaques complémentaire d'affilé \n" \
-    "et que ses deux attauses complémentaire étaient de points de dégats plus élevés que le Dark Magician \n" \
-    "alors on gagne 6 points de vie un plus /n" \
-    "on peut slectionner à chaque tour un carte parmis quatre cartes parmis les 8 du jeux "
-    "(on ne pourra donc pas réutiliser deux fois d'affilé la même carte)"
-    
-    Le joueur J gagne s'il atteint la sortie | ou s'il bat le Dark Magician M avec ses attaques. 
-On ne peut pas passer par dessus le Dark Magician.
-
-Le joueur perd si le Dark Magician arrive sur sa case ou si ses attaques lui font perdre tous ses PV.
-
-Si le Dark Magician lance une action complémentaire à notre attaque,
-un seul prend les dégats de pv : la difference des dégats des deux attaques + 2.
-    
-On peut sélectionner à chaque tour une carte parmis quatre cartes parmis les 8 du jeux.
-Il est donc impossible de réutiliser deux fois d'affilé la même carte.
-Le joueur dépense 2 lulus pour jouer Foudre ou Terre et 4 lulus pour jouer Magie ou Temps. Les autres cartes du joueur sont gratuites.
-
-Si aucune carte en main n'est jouable, le joueur passe son tour et reçoit une carte gratuite en remplacement à la fin du tour.
-
-Le joueur utilise la même réserve de lulus pour jouer ses cartes, se déplacer et se soigner. Il peut se soigner une fois par tour, avant ou après son attaque ou son déplacement.
-Le joueur d'après lancera une attaque sans toucher l'adversaire, sauf si il se déplace.
-Toute attaque est comptabilisée si et seulement si le joueur précedent n'a pas bougé.
+Le déplacement coûte 22 lulus et protège contre la prochaine attaque adverse. Le joueur peut dépenser 10 lulus pour récupérer jusqu'à 14 PV, une fois par tour. Le Dark Magician se soigne au même prix s'il lui reste moins de 10 PV et qu'il a assez de lulus.

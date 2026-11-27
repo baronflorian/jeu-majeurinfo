@@ -51,6 +51,7 @@ class Ordi(Player):
         super().__init__(actions, vie)
         self.lulu = lulu
         self.protege = False
+        self.niveau_difficulte = 2
 
     def peut_bouger(self):
         return self.lulu >= valeur.LULU_POUR_BOUGER
@@ -86,9 +87,13 @@ class Ordi(Player):
                 numero_max = i
         return self.jouer_carte(numero_max)
 
-    def choisir_deplacement(self, graphe, position_ordi, position_joueur):
-        """A* : renvoie la prochaine case du chemin vers le joueur, ou None."""
-        chemin = a_star(graphe, position_ordi, position_joueur)
+    def choisir_deplacement(self, graphe, position_ordi, position_cible):
+        """Renvoie le premier pas vers la cible accessible la plus proche, ou None."""
+        cibles = [position_cible] if isinstance(position_cible, tuple) else position_cible
+        if position_ordi in cibles:
+            return None
+        chemins = (a_star(graphe, position_ordi, cible) for cible in cibles)
+        chemin = min((chemin for chemin in chemins if chemin), key=len, default=[])
         if len(chemin) >= 2:
             return chemin[1]
         return None
