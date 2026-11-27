@@ -74,7 +74,7 @@ Lorsque les deux personnages jouent des cartes complémentaires de puissances di
 Les tours du joueur et du Dark Magician alternent afin que chacun puisse, lorsque cela est possible, bénéficier de l'utilisation d'une carte complémentaire.
 
 ### Lulus
-Les attaques rapportent des lulus en fonction des dégâts infligés. Le coefficient de difficulté s’applique au gain du Dark Magician.
+Le joueur gagne un lulu par point de dégâts infligé. Pour le Dark Magician, le nombre de lulus gagnés est égal aux dégâts infligés multipliés par le coefficient de difficulté. Une attaque esquivée rapporte 0 lulu.
 
 #### acheter des cartes
 Les lulus constituent une ressource essentielle pour progresser dans le jeu, car les cartes les plus puissantes nécessitent d'en dépenser pour être utilisées.
@@ -98,9 +98,8 @@ Le Dark Magician se soigne avant de choisir son action s’il lui reste moins de
 #### Se déplacer
 Enfin, pour bouger dans le labyrinthe, il faut dépenser 22 lulus.
 
-Lorsque le joueur se déplace, il bénéficie d'une **protection** : la prochaine attaque du Dark Magician est annulée (0 dégât subi).
-
-Le Dark Magician, en revanche, n'est **pas protégé** par son déplacement : si le joueur attaque, son attaque touche le Dark Magician, que le déplacement ait lieu avant ou après. Comme il ne joue pas de carte en se déplaçant, l'attaque lui inflige directement les dégâts de la carte du joueur. S'il se déplace en premier, il n'attaque pas ce tour-là.
+En se déplaçant le joueur sera protégé contre l'action suivante du dark magicien.
+L'attaque du joueur touche le Dark Magician même s'il se déplace.
 
 ### Fin de partie
 

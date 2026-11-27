@@ -109,9 +109,10 @@ regle = (
     "- Si aucune carte en main n'est jouable, tu passes ton tour et une nouvelle carte entre dans ta main à la fin du tour.\n"
     "- Si deux cartes complémentaires ont des puissances différentes, celui qui a joué la plus faible subit la différence de dégâts plus 2.\n"
     "- Si elles sont de même puissance, les attaques s'annulent.\n"
-    "- Une attaque rapporte autant de lulu que de dégâts infligés.\n"
+    "- Tu gagnes autant de lulus que tu infliges de dégâts. Le gain du Dark Magician est multiplié par le coefficient de difficulté.\n"
     "- Un déplacement coûte 22 lulu. Un soin coûte 10 lulu et rend jusqu'à 14 PV.\n"
-    "- Après un déplacement, l'attaque suivante de l'adversaire ne te fait aucun dégât (l'attaque est esquivée)."
+    "- En te déplaçant,tu seras protégé contre l'action suivante du dark magicien.\n"
+    "- Ton attaque touche le Dark Magician même s'il se déplace."
 )
 
 menu = """| Élément | Points de dégâts | Coût en lulu |
