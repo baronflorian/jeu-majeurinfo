@@ -1,7 +1,7 @@
 # Heuristique de choix des actions du Dark Magician:
 *Le Dark Magician suit une stratégie basée sur des règles de priorité afin de choisir l'action qui lui semble la plus avantageuse.*
 
-Le Dark Magician se soigne en priorité s'il lui reste moins de 10 PV et dispose d'assez de Lulu.
+Le Dark Magician se soigne en priorité s'il lui reste moins de 20 PV(40 au niveau 3) et dispose d'assez de Lulu.
 
 Le Dark Magician cherche en priorité à se déplacer lorsqu'il en a la possibilité. Ce choix lui permet de se rapprocher du joueur et de tenter de l'atteindre afin de remporter la partie.
 
@@ -20,7 +20,7 @@ Si le joueur est loin du Dark Magician et de la sortie, le Dark Magician reste s
 
 Si le joueur se rapproche de la sortie, le Dark Magician vise une case adjacente à celle-ci pour la défendre.
 
-Si le joueur est près de la sortie et à deux cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
+Si le joueur est près de la sortie et à trois cases ou moins du Dark Magician selon la distance de Manhattan, le Dark Magician poursuit directement le joueur.
 
 S’il reste sur place, le Dark Magician applique les mêmes règles de choix des cartes qu’aux autres niveaux.
 
