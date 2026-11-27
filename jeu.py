@@ -22,7 +22,7 @@ def tour_ordi_ia_ameliorer(ordi, joueur, graphe):
     else:
         plateau = 3
 
-    if ordi.vie < 20 and ordi.peut_se_soigner():
+    if ordi.vie < 40 and ordi.peut_se_soigner():
         ordi.soin_ordi()
 
     if not ordi.peut_bouger():
@@ -59,7 +59,8 @@ def afficher_plateau():
 
 def afficher_etat(joueur, ordi):
     print(f"Toi : {joueur.vie} PV | {joueur.lulu} lulu")
-    print(f"Dark Magician : {ordi.vie} PV | {ordi.lulu} lulu")
+    lulu_ordi = f"{ordi.lulu:.1f}".replace(".", ",")
+    print(f"Dark Magician : {ordi.vie} PV | {lulu_ordi} lulu")
 
 
 def soigner(joueur):
@@ -192,7 +193,7 @@ def tour_ordi(ordi, joueur, graphe, carte_joueur, joueur_passe=False):
     if ordi.niveau_difficulte == 3:
         suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
     else:
-        if ordi.vie < 10 and ordi.peut_se_soigner():
+        if ordi.vie < 20 and ordi.peut_se_soigner():
             ordi.soin_ordi()
         if ordi.peut_bouger():
             suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
@@ -252,7 +253,7 @@ def tour_ordi_en_premier(ordi, graphe, joueur):
     if ordi.niveau_difficulte == 3:
         suivante = tour_ordi_ia_ameliorer(ordi, joueur, graphe)
     else:
-        if ordi.vie < 10 and ordi.peut_se_soigner():
+        if ordi.vie < 20 and ordi.peut_se_soigner():
             ordi.soin_ordi()
         if ordi.peut_bouger():
             suivante = ordi.choisir_deplacement(graphe, position_ordi, position_joueur)
