@@ -83,7 +83,6 @@ def soigner(joueur):
 
 def demander_action(joueur, ordi, soin_utilise=False):
     """Renvoie l'action du joueur et indique si son soin du tour a été utilisé.
-
     Le soin s'applique directement dans le menu, qui reste ouvert ensuite.
     """
     while True:
